@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+      <h1>测试平台</h1>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
     <div class="main-login-input">
         <el-form-item prop="username">
@@ -19,7 +20,6 @@
         <el-button id="loginButton" type="primary" @click="submitForm('ruleForm')">登录</el-button>
     </div>
     </el-form>
-    <router-link to="/function">跳转到详情页</router-link>
   </div>
 </template>
 
