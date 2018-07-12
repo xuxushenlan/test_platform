@@ -10,7 +10,7 @@
     </div>
     <div class="main-login-input">
         <el-form-item prop="password">
-            <el-input placeholder="请输入密码" v-model="ruleForm.password">
+            <el-input placeholder="请输入密码" type="password"v-model="ruleForm.password">
                 <template slot="prepend">密码</template>
             </el-input>
         </el-form-item>
@@ -19,6 +19,7 @@
         <el-button id="loginButton" type="primary" @click="submitForm('ruleForm')">登录</el-button>
     </div>
     </el-form>
+    <router-link to="/function">跳转到详情页</router-link>
   </div>
 </template>
 
@@ -55,19 +56,18 @@ export default {
     },
     // 执行登录
     loginSubmit: function(){
-        // const loading = this.$loading({
-        //   fullscreen: true,
-        // });
+        const loading = this.$loading({
+          fullscreen: true,
+        });
         console.log("用户名", this.ruleForm.username);
         console.log("密码", this.ruleForm.password);
          // 保存上传的文件
         fetchUserLogin(this.ruleForm.username, this.ruleForm.password).then(data => {
           if ("true" === data.success) {
-            console.log(data.data);
-            
-            //loading.close();
+            this.$router.push({path: '/function'});
+            loading.close();
           } else {
-            //loading.close();
+            loading.close();
             this.$message.error(data.message);
           }
         });
