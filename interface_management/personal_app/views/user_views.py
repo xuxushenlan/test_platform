@@ -18,14 +18,15 @@ def user_login(request):
     if request.method == "POST":
         login_username = request.POST.get("username")
         login_password = request.POST.get("password")
-        print(login_username)
-        print(login_password)
         if login_username == '' or login_password == '':
             return common.response_failed(message="用户名密码为空")
         else:
             user = auth.authenticate(username=login_username, password=login_password)
-            if user is not None:
+            if user is not None and user.is_active:
                 auth.login(request, user)  # 验证登录
+                # update the token
+                token = Token.objects.get(user=user)
+                token.delete()
                 token = Token.objects.create(user=user)
                 return common.response_succeed(message="登录成功", data={"Token":str(token)})
             else:

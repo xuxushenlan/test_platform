@@ -64,7 +64,12 @@ export default {
          // 保存上传的文件
         fetchUserLogin(this.ruleForm.username, this.ruleForm.password).then(data => {
           if ("true" === data.success) {
+            let result = data.data;
+            console.log(result.Token);
+            this.$store.commit('login', result.Token);
             this.$router.push({path: '/function'});
+            console.log('wtf', this.$route.query.redirect);
+            this.$router.push(this.$route.query.redirect || '/function');
             loading.close();
           } else {
             loading.close();
