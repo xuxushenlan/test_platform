@@ -19,4 +19,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+body{
+  margin-left: 0px;
+  margin-top: 0px;
+}
 </style>

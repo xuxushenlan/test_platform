@@ -17,7 +17,7 @@
         </el-form-item>
     </div>
     <div class="main-login-button">
-        <el-button id="loginButton" type="primary" @click="submitForm('ruleForm')">登录</el-button>
+        <el-button id="loginButton" type="info" @click="submitForm('ruleForm')">登录</el-button>
     </div>
     </el-form>
   </div>
@@ -32,8 +32,8 @@ export default {
   data () {
     return {
         ruleForm: {
-            username: '',
-            password: '',
+            username: 'test@mail.com',
+            password: 'test123456',
         },
         rules: {
             username: [

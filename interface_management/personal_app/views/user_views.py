@@ -9,6 +9,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated
 
 
+
 def user_login(request):
     """
     用户登录
@@ -25,8 +26,11 @@ def user_login(request):
             if user is not None and user.is_active:
                 auth.login(request, user)  # 验证登录
                 # update the token
-                token = Token.objects.get(user=user)
-                token.delete()
+                try:
+                    token = Token.objects.get(user=user)
+                    token.delete()
+                except Token.DoesNotExist:
+                    pass
                 token = Token.objects.create(user=user)
                 return common.response_succeed(message="登录成功", data={"Token":str(token)})
             else:
@@ -35,11 +39,12 @@ def user_login(request):
         return common.response_failed(message="请求方法错误")
 
 
-@api_view(['GET'])
-@permission_classes((IsAuthenticated, ))
-def user_auth_test(request):
+#@api_view(['POST'])
+#@permission_classes((IsAuthenticated, ))
+def get_username(request):
     """
-    测试用户认证
+    获取登录用户名
     """
     print(request.user, request.user.id)
-    return common.response_succeed()
+    username = str(request.user)
+    return common.response_succeed(data={"username":username})

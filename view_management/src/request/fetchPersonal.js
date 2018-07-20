@@ -29,3 +29,13 @@ export const fetchUserLogin = (username, password) => {
         return response.json()
     });
 };
+
+export const fetchGetUsername = (token) => fetch(baseUrl + 'get_username', {
+    headers: {"Token": token},
+    method: "POST",
+    body: JSON.stringify({"token":token}),
+    mode: "cors",
+    credentials: 'include',
+}).then(function (response) {
+    return response.json()
+});

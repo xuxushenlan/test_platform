@@ -33,6 +33,10 @@
 </template>
 
 <script>
+
+import {fetchGetUsername} from  "../request/fetchPersonal"
+
+
 export default {
   name: 'function',
   data() {
@@ -44,13 +48,31 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+    },
+    // 获取用户名
+    getUserName: function() {
+      console.log("出现吧！！");
+      let token = this.$store.state.token;
+      console.log(token);
+      fetchGetUsername(token).then(data => {
+          if ("true" === data.success) {
+            console.log(data.data);
+            this.user = data.data.username;  
+          } else {
+            this.$message.error(data.message);
+          }
+        });
     }
-  }
+    
+  },
+  created() {
+    this.getUserName();
+  },
 }
 </script>
 
 <style>
 #function #user{
   float: right;
-} 
+}
 </style>
