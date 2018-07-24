@@ -13,8 +13,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly, IsAu
 def user_login(request):
     """
     用户登录
-    :param request: 
-    :return: 
     """
     if request.method == "POST":
         login_username = request.POST.get("username")
@@ -28,9 +26,10 @@ def user_login(request):
                 # update the token
                 try:
                     token = Token.objects.get(user=user)
-                    token.delete()
                 except Token.DoesNotExist:
                     pass
+                else:
+                    token.delete()
                 token = Token.objects.create(user=user)
                 return common.response_succeed(message="登录成功", data={"Token":str(token)})
             else:
@@ -39,8 +38,6 @@ def user_login(request):
         return common.response_failed(message="请求方法错误")
 
 
-#@api_view(['POST'])
-#@permission_classes((IsAuthenticated, ))
 def get_username(request):
     """
     获取登录用户名
@@ -48,3 +45,13 @@ def get_username(request):
     print(request.user, request.user.id)
     username = str(request.user)
     return common.response_succeed(data={"username":username})
+
+
+def user_logout(request):
+    """
+    退出登录
+    """
+    print(request.user)
+    token = Token.objects.get(user=request.user)
+    token.delete()
+    return common.response_succeed()

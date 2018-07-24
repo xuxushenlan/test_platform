@@ -15,7 +15,7 @@ const baseUrl = '/api/personal/';
 //     return response.json()
 // });
 
-// from-data 格式传参
+// 登录（from-data 格式传参）
 export const fetchUserLogin = (username, password) => {
     let formData = new FormData();
     formData.append('username', username);
@@ -30,10 +30,22 @@ export const fetchUserLogin = (username, password) => {
     });
 };
 
+// 获取用户名
 export const fetchGetUsername = (token) => fetch(baseUrl + 'get_username', {
     headers: {"Token": token},
     method: "POST",
     body: JSON.stringify({"token":token}),
+    mode: "cors",
+    credentials: 'include',
+}).then(function (response) {
+    return response.json()
+});
+
+// 退出
+export const fetchUserLogout = (token) => fetch(baseUrl + 'user_logout', {
+    headers: { "Token": token },
+    method: "POST",
+    body: JSON.stringify({ "token": token }),
     mode: "cors",
     credentials: 'include',
 }).then(function (response) {

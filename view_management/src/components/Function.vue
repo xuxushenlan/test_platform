@@ -15,17 +15,18 @@
         <el-menu-item index="2-2">测试任务2</el-menu-item>
         <el-menu-item index="2-3">测试环境3</el-menu-item>
         <el-menu-item index="2-3">TAG管理</el-menu-item>
-      </el-submenu>  
+      </el-submenu>
       <el-submenu index="3">
         <template slot="title">测试工具</template>
         <el-menu-item index="3-1">工具1</el-menu-item>
         <el-menu-item index="3-2">工具2</el-menu-item>
         <el-menu-item index="3-3">工具3</el-menu-item>
       </el-submenu>
-      <el-submenu index="4" id="user">
+      <el-submenu index="personal" id="personalMeun">
         <template slot="title">{{ user }}</template>
         <el-menu-item index="4-1">个人信息</el-menu-item>
         <el-menu-item index="4-2">修改密码</el-menu-item>
+        <el-menu-item index="logout">退出</el-menu-item>
       </el-submenu>
     </el-menu>
     <div class="line"></div>
@@ -35,7 +36,7 @@
 <script>
 
 import {fetchGetUsername} from  "../request/fetchPersonal"
-
+import {fetchUserLogout} from  "../request/fetchPersonal"
 
 export default {
   name: 'function',
@@ -47,13 +48,23 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      // 个人中心--退出
+      if(key === "logout"){
+        let token = this.$store.state.token;
+        fetchUserLogout(token).then(data => {
+          if ("true" === data.success) {
+            this.$store.commit('logout');
+            this.$router.push({path: '/login'});  
+          } else {
+            this.$message.error(data.message);
+          }
+        });
+
+      }
     },
     // 获取用户名
     getUserName: function() {
-      console.log("出现吧！！");
       let token = this.$store.state.token;
-      console.log(token);
       fetchGetUsername(token).then(data => {
           if ("true" === data.success) {
             console.log(data.data);
@@ -72,7 +83,7 @@ export default {
 </script>
 
 <style>
-#function #user{
+#function #personalMeun{
   float: right;
 }
 </style>
