@@ -1,13 +1,15 @@
 <template>
-  <div id="function">    
+  <div id="function">
     <el-menu
+      id="navigation"
       :default-active="activeIndex"
       class="el-menu-demo"
       mode="horizontal"
       @select="handleSelect"
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#ffd04b">
+      active-text-color="#ffd04b"> 
+      <el-menu-item class="logo-title">测试平台</el-menu-item>     
       <el-menu-item index="1">项目管理</el-menu-item>
       <el-submenu index="2">
         <template slot="title">接口测试</template>
@@ -141,5 +143,10 @@ export default {
   margin-top: 20px;
   padding: 20px 40px 40px 40px;
 }
+.logo-title{
+ font-weight: 600;
+ font-size: 18px;
+}
+
 </style>
 
