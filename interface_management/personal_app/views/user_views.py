@@ -9,7 +9,6 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated
 
 
-
 def user_login(request):
     """
     用户登录
@@ -42,7 +41,6 @@ def get_username(request):
     """
     获取登录用户名
     """
-    print(request.user, request.user.id)
     username = str(request.user)
     return common.response_succeed(data={"username":username})
 
@@ -51,7 +49,6 @@ def user_logout(request):
     """
     退出登录
     """
-    print(request.user)
     token = Token.objects.get(user=request.user)
     token.delete()
     return common.response_succeed()
