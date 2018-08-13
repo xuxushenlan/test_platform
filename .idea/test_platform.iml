@@ -5,7 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/interface_management/personal_app" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/interface_management" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.6.3 (C:\Python36\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">
