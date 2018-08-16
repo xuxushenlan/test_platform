@@ -1,10 +1,14 @@
+"""
+__author__ : 虫师
+__date__: 2018.8.16
+"""
 import traceback
-from project_app.models.project_models import Project
+from project_app.models.module_models import Module
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 
 
-class ProjectDao(object):
+class ModuleDao(object):
 
     @classmethod
     def get_object_by_id(cls, id_):
@@ -14,7 +18,7 @@ class ProjectDao(object):
         :return:
         """
         try:
-            pro = Project.objects.get(id=id_)
+            pro = Module.objects.get(id=id_)
             return pro
         except ObjectDoesNotExist:
             return None
@@ -22,14 +26,14 @@ class ProjectDao(object):
     @classmethod
     def create(cls, name, describe, status):
         """
-        创建项目
+        创建模块
         :param name:
         :param describe:
         :param status:
         :return:
         """
         try:
-            pro = Project.objects.create(name=name, describe=describe, status=int(status))
+            pro = Module.objects.create(name=name, describe=describe, status=int(status))
             return pro
         except Exception:
             traceback.print_exc()
@@ -38,7 +42,7 @@ class ProjectDao(object):
     @classmethod
     def update(cls, id_, name, describe, status):
         """
-        更新项目
+        更新模块
         :param id_:
         :param name:
         :param describe:
@@ -67,7 +71,7 @@ class ProjectDao(object):
         :return:
         """
         try:
-            pro = Project.objects.filter(name=name)
+            pro = Module.objects.filter(name=name)
             return pro
         except Exception:
             traceback.print_exc()
@@ -76,11 +80,11 @@ class ProjectDao(object):
     @classmethod
     def get_object_list(cls):
         """
-        获取项目列表
+        获取模块列表
         :return:
         """
         try:
-            pro_objects = Project.objects.all()
+            pro_objects = Module.objects.all()
             pro_list = []
             for pro_object in pro_objects:
                 pro = model_to_dict(pro_object)
@@ -92,7 +96,7 @@ class ProjectDao(object):
     @classmethod
     def delete_by_id(cls, id_):
         """
-        通过id删除项目
+        通过id删除模块
         :param id_:
         :return:
         """
