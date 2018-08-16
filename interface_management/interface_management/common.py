@@ -30,30 +30,29 @@ def get_request_key(req, key):
     return re
 
 
-def response_succeed(success="true", message="请求成功", data={}):
+def response_succeed(message="请求成功", data={}):
     """
     响应成功
-    :param success: 结果
     :param message: 说明
     :param data: 详细数据
     :return:
     """
     content = {
-        "success": success,
+        "success": "true",
         "message": message,
         "data": data,
     }
     return JsonResponse(content)
 
 
-def response_failed(success="false", message="参数错误"):
+def response_failed(message="参数错误"):
     """
     响应失败
     :param message:
     :return:
     """
     content = {
-        "success": success,
+        "success": "false",
         "message": message,
     }
     return JsonResponse(content)

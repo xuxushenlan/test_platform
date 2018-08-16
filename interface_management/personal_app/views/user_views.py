@@ -17,7 +17,7 @@ def user_login(request):
         login_username = request.POST.get("username")
         login_password = request.POST.get("password")
         if login_username == '' or login_password == '':
-            return common.response_failed(message="用户名密码为空")
+            return common.response_failed("用户名密码为空")
         else:
             user = auth.authenticate(username=login_username, password=login_password)
             if user is not None and user.is_active:
@@ -30,11 +30,11 @@ def user_login(request):
                 else:
                     token.delete()
                 token = Token.objects.create(user=user)
-                return common.response_succeed(message="登录成功", data={"Token":str(token)})
+                return common.response_succeed("登录成功", data={"Token": str(token)})
             else:
-                return common.response_failed(message="用户名或密码错误")
+                return common.response_failed("用户名或密码错误")
     else:
-        return common.response_failed(message="请求方法错误")
+        return common.response_failed("请求方法错误")
 
 
 def get_username(request):
@@ -42,7 +42,7 @@ def get_username(request):
     获取登录用户名
     """
     username = str(request.user)
-    return common.response_succeed(data={"username":username})
+    return common.response_succeed(data={"username": username})
 
 
 def user_logout(request):
