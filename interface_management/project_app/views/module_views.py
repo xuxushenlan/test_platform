@@ -63,7 +63,15 @@ def get_modules(request):
     :param request:
     :return:
     """
-    pass
+    if request.method == "GET":
+        req = ModuleDao.get_list()
+        if req is None:
+            return common.response_failed("查询失败")
+
+        return common.response_succeed("查询成功", data=req)
+    else:
+        return common.response_failed("请求方法错误")
+
 
 
 def delete_module(request):

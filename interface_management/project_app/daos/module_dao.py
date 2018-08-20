@@ -83,7 +83,7 @@ class ModuleDao(object):
             return None
 
     @classmethod
-    def get_object_list(cls):
+    def get_list(cls):
         """
         获取模块列表
         :return:
