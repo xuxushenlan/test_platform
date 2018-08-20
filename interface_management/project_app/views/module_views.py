@@ -38,7 +38,23 @@ def update_module(request):
     :param request:
     :return:
     """
-    pass
+    if request.method == "POST":
+        req = common.json_to_dict(request.body)
+        id_ = common.get_request_key(req, "id")
+        project = common.get_request_key(req, "project")
+        name = common.get_request_key(req, "name")
+        describe = common.get_request_key(req, "describe")
+
+        if id_ is None or project is None or name is None or describe is None:
+            return common.response_failed("必传参数为空")
+
+        req = ModuleDao.update(id_, project, name, describe)
+        if req is None:
+            return common.response_failed("更新项目失败")
+
+        return common.response_succeed("更新成功")
+    else:
+        common.response_failed("请求方法错误")
 
 
 def get_modules(request):

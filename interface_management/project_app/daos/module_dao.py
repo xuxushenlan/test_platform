@@ -1,11 +1,12 @@
 """
 __author__ : 虫师
-__date__: 2018.8.16
+__date__: 2018.8.20
 """
 import traceback
 from project_app.models.module_models import Module
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
+from project_app.daos.project_dao import ProjectDao
 
 
 class ModuleDao(object):
@@ -40,24 +41,28 @@ class ModuleDao(object):
             return None
 
     @classmethod
-    def update(cls, id_, name, describe, status):
+    def update(cls, id_, project, name, describe):
         """
         更新模块
         :param id_:
+        :param project:
         :param name:
         :param describe:
-        :param status:
         :return:
         """
         try:
-            pro_obj = cls.get_object_by_id(id_)
+            pro_obj = ProjectDao.get_object_by_name(project)
             if pro_obj is None:
                 return None
 
-            pro_obj.name = name
-            pro_obj.describe = describe
-            pro_obj.status = status
-            pro_obj.save()
+            module_obj = cls.get_object_by_id(id_)
+            if module_obj is None:
+                return None
+
+            module_obj.name = name
+            module_obj.describe = describe
+            module_obj.porject = pro_obj
+            module_obj.save()
             return True
         except Exception:
             traceback.print_exc()
@@ -71,8 +76,8 @@ class ModuleDao(object):
         :return:
         """
         try:
-            pro = Module.objects.filter(name=name)
-            return pro
+            module = Module.objects.filter(name=name)
+            return module
         except Exception:
             traceback.print_exc()
             return None
