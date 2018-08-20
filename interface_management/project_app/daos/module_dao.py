@@ -24,16 +24,16 @@ class ModuleDao(object):
             return None
 
     @classmethod
-    def create(cls, name, describe, status):
+    def create(cls, porject, name, describe):
         """
         创建模块
+        :param porject:
         :param name:
         :param describe:
-        :param status:
         :return:
         """
         try:
-            pro = Module.objects.create(name=name, describe=describe, status=int(status))
+            pro = Module.objects.create(project=project, name=name, describe=describe)
             return pro
         except Exception:
             traceback.print_exc()
