@@ -16,4 +16,5 @@ urlpatterns = [
     path('update_module', module_views.update_module),
     path('get_modules', module_views.get_modules),
     path('del_module', module_views.delete_module),
+    
 ]
