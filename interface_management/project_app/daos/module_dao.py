@@ -59,9 +59,9 @@ class ModuleDao(object):
             if module_obj is None:
                 return None
 
+            module_obj.porject = pro_obj
             module_obj.name = name
             module_obj.describe = describe
-            module_obj.porject = pro_obj
             module_obj.save()
             return True
         except Exception:
