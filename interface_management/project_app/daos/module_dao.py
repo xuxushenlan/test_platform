@@ -106,12 +106,12 @@ class ModuleDao(object):
         :return:
         """
         try:
-            pro_obj = cls.get_object_by_id(id_)
-            if pro_obj is None:
+            module_obj = cls.get_object_by_id(id_)
+            if module_obj is None:
                 return None
 
-            pro_obj.delete()
-            return pro_obj
+            module_obj.delete()
+            return module_obj
         except Exception:
             traceback.print_exc()
             return None
