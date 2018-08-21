@@ -73,7 +73,7 @@ def get_projects(request):
     :param request:
     :return:
     """
-    if request.method == "GET":
+    if request.method == "POST":
         req = ProjectDao.get_object_list()
         if req is None:
             return common.response_failed("查询失败")

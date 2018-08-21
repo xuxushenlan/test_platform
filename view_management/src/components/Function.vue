@@ -1,5 +1,5 @@
 <template>
-  <div id="function">
+  <div id="function" index="function">
     <el-menu
       id="navigation"
       :default-active="activeIndex"
@@ -8,8 +8,8 @@
       @select="handleSelect"
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#ffd04b"> 
-      <el-menu-item class="logo-title">测试平台</el-menu-item>     
+      active-text-color="#ffd04b">
+      <el-menu-item class="logo-title">测试平台</el-menu-item>
       <el-menu-item index="1">项目管理</el-menu-item>
       <el-submenu index="2">
         <template slot="title">接口测试</template>
@@ -34,6 +34,7 @@
     <div class="line"></div>
     <div class="BodyTab" v-if="defaultBody===1">
       <div>测试任务管理</div>
+      <ProjectList v-if="showProjectList"></ProjectList>
     </div>
     <div class="BodyTab" v-if="defaultBody===2">
       <div>测试用例管理</div>
@@ -57,28 +58,36 @@
 
 import {fetchGetUsername} from  "../request/fetchPersonal"
 import {fetchUserLogout} from  "../request/fetchPersonal"
+import ProjectList from "./project/PorjectList"
+
 
 export default {
   name: 'function',
+  components: {
+      // 引用子组件
+      ProjectList,
+    },
   data() {
     return {
       user: "admin@mail.com",
       activeIndex: '1',
       defaultBody: 1,
+
+      showProjectList: false,
     };
   },
   methods: {
     handleSelect(key, keyPath) {
       console.log("key:",key);
       console.log("keyPath",keyPath);
-      
+
       // 个人中心--退出
       if(key === "logout"){
         let token = this.$store.state.token;
         fetchUserLogout(token).then(data => {
           if ("true" === data.success) {
             this.$store.commit('logout');
-            this.$router.push({path: '/login'});  
+            this.$router.push({path: '/login'});
           } else {
             this.$message.error(data.message);
           }
@@ -87,6 +96,7 @@ export default {
       // 项目管理
       else if(key === "1"){
         this.defaultBody = 1;
+        this.showProjectList = true
       }
       // 接口测试--用例管理
       else if(key === "testCase"){
@@ -115,13 +125,13 @@ export default {
       fetchGetUsername(token).then(data => {
           if ("true" === data.success) {
             console.log(data.data);
-            this.user = data.data.username;  
+            this.user = data.data.username;
           } else {
             this.$message.error(data.message);
           }
         });
     }
-    
+
   },
   created() {
     this.getUserName();
