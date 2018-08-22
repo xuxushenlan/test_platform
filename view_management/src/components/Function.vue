@@ -1,29 +1,12 @@
 <template>
   <div id="function" index="function">
     <el-menu
-      id="navigation"
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b">
-      <el-menu-item class="logo-title">测试平台</el-menu-item>
+      id="navigation" :default-active="activeIndex" class="el-menu-demo" mode="horizontal"
+      @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+      <el-menu-item index="0" class="logo-title">测试平台</el-menu-item>
       <el-menu-item index="1">项目管理</el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">接口测试</template>
-        <el-menu-item index="testCase">测试用例</el-menu-item>
-        <el-menu-item index="testTask">测试任务</el-menu-item>
-        <el-menu-item index="testEnv">测试环境</el-menu-item>
-        <el-menu-item index="TestTag">TAG管理</el-menu-item>
-      </el-submenu>
-      <el-submenu index="3">
-        <template slot="title">测试工具</template>
-        <el-menu-item index="tools">工具1</el-menu-item>
-        <el-menu-item index="3-2">工具2</el-menu-item>
-        <el-menu-item index="3-3">工具3</el-menu-item>
-      </el-submenu>
+      <el-menu-item index="2">接口管理</el-menu-item>
+      <el-menu-item index="3">测试工具</el-menu-item>
       <el-submenu index="personal" id="personalMeun">
         <template slot="title">{{ user }}</template>
         <el-menu-item index="4-1">个人信息</el-menu-item>
@@ -32,25 +15,71 @@
       </el-submenu>
     </el-menu>
     <div class="line"></div>
+
+    <!--项目管理 -->
+    <div class="secondary-menu" v-if="defaultBody===1">
+      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+               style="height: 700px">
+      <el-menu-item index="1">
+        <i class="el-icon-menu"></i>
+        <span slot="title">项目</span>
+      </el-menu-item>
+      <el-menu-item index="2">
+        <i class="el-icon-document"></i>
+        <span slot="title">模块</span>
+      </el-menu-item>
+    </el-menu>
+    </div>
+
+    <!-- 用例管理 -->
+    <div class="secondary-menu" v-else-if="defaultBody===2">
+      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+               style="height: 700px">
+      <el-menu-item index="1">
+        <i class="el-icon-menu"></i>
+        <span slot="title">用例</span>
+      </el-menu-item>
+      <el-menu-item index="2">
+        <i class="el-icon-document"></i>
+        <span slot="title">任务</span>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <i class="el-icon-document"></i>
+        <span slot="title">环境</span>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <i class="el-icon-document"></i>
+        <span slot="title">标签</span>
+      </el-menu-item>
+    </el-menu>
+    </div>
+
+    <!-- 测试工具 -->
+    <div class="secondary-menu" v-else-if="defaultBody===3">
+      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+               style="height: 700px">
+        <el-menu-item index="1">
+          <i class="el-icon-menu"></i>
+          <span slot="title">工具1</span>
+        </el-menu-item>
+        <el-menu-item index="2">
+          <i class="el-icon-document"></i>
+          <span slot="title">工具2</span>
+        </el-menu-item>
+      </el-menu>
+    </div>
+
     <div class="BodyTab" v-if="defaultBody===1">
-      <div>测试任务管理</div>
-      <ProjectList v-if="showProjectList"></ProjectList>
+      <div>测试任务</div>
+      <ProjectList></ProjectList>
     </div>
     <div class="BodyTab" v-if="defaultBody===2">
-      <div>测试用例管理</div>
+      <div>测试用例</div>
     </div>
     <div class="BodyTab" v-if="defaultBody===3">
-      <div>测试任务管理</div>
+      <div>测试工具</div>
     </div>
-    <div class="BodyTab" v-if="defaultBody===4">
-      <div>测试环境管理</div>
-    </div>
-    <div class="BodyTab" v-if="defaultBody===5">
-      <div>测试标签管理</div>
-    </div>
-    <div class="BodyTab" v-if="defaultBody===6">
-      <div>测试工具1管理</div>
-    </div>
+
   </div>
 </template>
 
@@ -98,26 +127,15 @@ export default {
         this.defaultBody = 1;
         this.showProjectList = true
       }
-      // 接口测试--用例管理
-      else if(key === "testCase"){
+      // 接口测试
+      else if(key === "2"){
         this.defaultBody = 2;
       }
-      // 接口测试--任务管理
-      else if(key === "testTask"){
+      // 测试工具
+      else if(key === "3"){
         this.defaultBody = 3;
       }
-      // 接口测试--测试环境
-      else if(key === "testEnv"){
-        this.defaultBody = 4;
-      }
-      // 接口测试--测试标签
-      else if(key === "TestTag"){
-        this.defaultBody = 5;
-      }
-      // 接口测试--测试标签
-      else if(key === "tools"){
-        this.defaultBody = 6;
-      }
+
     },
     // 获取用户名
     getUserName: function() {
@@ -143,15 +161,23 @@ export default {
 #function #personalMeun{
   float: right;
 }
+
+.secondary-menu{
+  width: 220px;
+  height: 800px;
+  float: left;
+ }
 .BodyTab {
-  width: 1200px;
+  float: left;
+  width: 1000px;
   min-height: 590px;
   border-radius: 1px;
-  background-color: #ffffff;
-  margin-left: auto;
+  /*background-color: red;*/
+  /*background-color: #F5F5F5;*/
   margin-right: auto;
   margin-top: 20px;
-  padding: 20px 40px 40px 40px;
+  padding: 10px 40px 40px 40px;
+  margin-left: 10px;
 }
 .logo-title{
  font-weight: 600;
