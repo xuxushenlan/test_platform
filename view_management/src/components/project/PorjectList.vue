@@ -8,21 +8,22 @@
 -->
 <template>
   <div id="project">
+    <div class="title-main">
+      <el-button type="info" @click="createProject">创建</el-button>
+    </div>
 
-  <el-table :data="tableData" style="width: 100%;">
-    <el-table-column prop="date" label="日期" width="180"></el-table-column>
-    <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-    <el-table-column prop="address" label="地址"></el-table-column>
-    <el-table-column
-      fixed="right"
-      label="操作"
-      width="100">
-      <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-        <el-button type="text" size="small">编辑</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+    <el-table :data="tableData" border style="width: 100%;">
+      <el-table-column prop="name" label="名称" width="180"></el-table-column>
+      <el-table-column prop="describe" label="描述" width="280"></el-table-column>
+      <el-table-column prop="status" label="状态" width="100"></el-table-column>
+
+      <el-table-column fixed="right" label="操作">
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+          <el-button type="text" size="small">编辑</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -31,7 +32,7 @@
 
 
   export default {
-    name: "PorjectList",
+    name: "ProjectList",
     props: [],  //组件变量
     components: {
       // 引用组件
@@ -40,23 +41,9 @@
       // 定义数据
       return{
         ProjectList: "",
-        tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }]
+        tableData: [],
+
+        showCreateWindows: false,
       }
     },
 
@@ -73,10 +60,25 @@
           if ("true" === resp.success) {
             //this.$message.success("已删除上传的接口文件");
             console.log(resp.data);
+            let result = resp.data;
+            for(let i=1; i< result.length; i++){
+              if (result[i].status === true){
+                 result[i].status = "开启";
+              }else{
+                result[i].status = "禁用";
+              }
+              this.tableData.push(result[i]);
+            }
+            console.log(this.tableData);
+
           } else {
             this.$message.error(resp.message);
           }
         });
+      },
+      // 创建项目
+      createProject: function () {
+        this.showCreateWindows = true;
       },
       // 点击查看
       handleClick(row) {
@@ -88,5 +90,9 @@
 </script>
 
 <style scoped>
+  .title-main {
+    float: left;
+    height: 50px;
+  }
 
 </style>

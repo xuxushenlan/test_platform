@@ -18,7 +18,7 @@
 
     <!--项目管理 -->
     <div class="secondary-menu" v-if="defaultBody===1">
-      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+      <el-menu default-active="2" class="el-menu-vertical-demo"
                style="height: 700px">
       <el-menu-item index="1">
         <i class="el-icon-menu"></i>
@@ -33,7 +33,7 @@
 
     <!-- 用例管理 -->
     <div class="secondary-menu" v-else-if="defaultBody===2">
-      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+      <el-menu default-active="2" class="el-menu-vertical-demo"
                style="height: 700px">
       <el-menu-item index="1">
         <i class="el-icon-menu"></i>
@@ -56,7 +56,7 @@
 
     <!-- 测试工具 -->
     <div class="secondary-menu" v-else-if="defaultBody===3">
-      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+      <el-menu default-active="2" class="el-menu-vertical-demo"
                style="height: 700px">
         <el-menu-item index="1">
           <i class="el-icon-menu"></i>
@@ -70,7 +70,7 @@
     </div>
 
     <div class="BodyTab" v-if="defaultBody===1">
-      <div>测试任务</div>
+      <div>项目管理</div>
       <ProjectList></ProjectList>
     </div>
     <div class="BodyTab" v-if="defaultBody===2">
