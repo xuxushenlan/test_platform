@@ -80,4 +80,18 @@ def delete_module(request):
     :param request:
     :return:
     """
-    pass
+    if request.method == "POST":
+        req = common.json_to_dict(request.body)
+        id_ = common.get_request_key(req, "id")
+
+        if id_ is None:
+            return common.response_failed("id不能为空")
+
+        ret = ModuleDao.delete_by_id(id_)
+        if ret is None:
+            return common.response_failed("删除失败")
+
+        return common.response_succeed("删除成功")
+    else:
+        return common.response_failed("请求方法错误")
+
