@@ -18,13 +18,13 @@
 
     <!--项目管理 -->
     <div class="secondary-menu" v-if="defaultBody===1">
-      <el-menu default-active="2" class="el-menu-vertical-demo"
-               style="height: 700px">
-      <el-menu-item index="1">
+      <el-menu default-active="1" class="el-menu-vertical-demo"
+               style="height: 700px" @select="menuSelect">
+      <el-menu-item index="11">
         <i class="el-icon-menu"></i>
         <span slot="title">项目</span>
       </el-menu-item>
-      <el-menu-item index="2">
+      <el-menu-item index="12">
         <i class="el-icon-document"></i>
         <span slot="title">模块</span>
       </el-menu-item>
@@ -106,6 +106,7 @@ export default {
     };
   },
   methods: {
+    // 选择一级菜单
     handleSelect(key, keyPath) {
       console.log("key:",key);
       console.log("keyPath",keyPath);
@@ -136,6 +137,11 @@ export default {
         this.defaultBody = 3;
       }
 
+    },
+    // 选择二级菜单
+    menuSelect: function(key, keyPath){
+      console.log("key2:",key);
+      console.log("keyPath2",keyPath);
     },
     // 获取用户名
     getUserName: function() {

@@ -24,18 +24,24 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <!-- 创建项目 -->
+    <CreateProjectTag v-if="showCreateProject"></CreateProjectTag>
+
   </div>
+
 </template>
 
 <script>
   import {fetchGetProjectList} from "../../request/fetchProjectData";
-
+  import CreateProject from "./CreateProject"
 
   export default {
     name: "ProjectList",
     props: [],  //组件变量
     components: {
-      // 引用组件
+      // 引用组件666
+      CreateProjectTag: CreateProject
     },
     data(){
       // 定义数据
@@ -43,7 +49,7 @@
         ProjectList: "",
         tableData: [],
 
-        showCreateWindows: false,
+        showCreateProject: false,
       }
     },
 
@@ -78,7 +84,8 @@
       },
       // 创建项目
       createProject: function () {
-        this.showCreateWindows = true;
+        this.showCreateProject = true;
+        $('body').css('overflow', 'auto');
       },
       // 点击查看
       handleClick(row) {
