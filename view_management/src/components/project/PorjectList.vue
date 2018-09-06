@@ -20,13 +20,15 @@
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button type="text" size="small" @click="EditProject">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 创建项目 -->
     <CreateProjectTag v-if="showCreateProject" v-on:onCancelClick="closeCreateProject" v-on:onSaveClick="saveCreateProject"></CreateProjectTag>
+    <!-- 编辑项目 -->
+    <EditProjectTag v-if="showEditProject" v-on:onCancelClick="closeEditProject" v-on:onSaveClick="saveEditProject"></EditProjectTag>
 
   </div>
 
@@ -35,13 +37,15 @@
 <script>
   import {fetchGetProjectList} from "../../request/fetchProjectData";
   import CreateProject from "./CreateProject"
+  import EditProject from "./EditProject"
 
   export default {
     name: "ProjectList",
     props: [],  //组件变量
     components: {
       // 引用组件
-      CreateProjectTag: CreateProject
+      CreateProjectTag: CreateProject,
+      EditProjectTag:  EditProject,
     },
     data(){
       // 定义数据
@@ -50,6 +54,7 @@
         tableData: [],
 
         showCreateProject: false,
+        showEditProject: false,
       }
     },
 
@@ -91,6 +96,19 @@
       //创建项目成功
       saveCreateProject: function() {
         this.showCreateProject = false;
+        this.getProjectList();
+      },
+      // 编辑项目
+      EditProject: function (){
+        this.showEditProject = true;
+      },
+      //取消编辑项目
+      closeEditProject: function() {
+        this.showEditProject = false;
+      },
+      //编辑项目成功
+      saveEditProject: function() {
+        this.showEditProject = false;
         this.getProjectList();
       },
       //点击查看

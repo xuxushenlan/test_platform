@@ -1,15 +1,15 @@
-<!--接口测试：创建项目
+<!--接口测试：编辑项目列表
 /**
 * @module views
 * @desc 项目管理列表
 * @author bugmaster
-* @date 2018年8月22日
+* @date 2018年9月6日
 */
 -->
 <template>
   <div class="layout-shade" @keyup.esc="CancelCreateModal" tabindex="10" id="createTag">
     <div class="create-body">
-      <div class="main-title">创建项目</div>
+      <div class="main-title">编辑项目</div>
       <div class="main-line"></div>
     </div>
 
@@ -28,8 +28,8 @@
       </div>
 
       <div class="main-create-confirm">
-        <el-button style="margin-left: 220px;" @click="cancelCreate">取消</el-button>
-        <el-button type="info" @click="saveCreate">保存</el-button>
+        <el-button style="margin-left: 220px;" @click="cancelEdit">取消</el-button>
+        <el-button type="info" @click="saveEdit">保存</el-button>
       </div>
       <div class="end-height"></div>
     </div>
@@ -51,29 +51,30 @@
         }
       },
       methods:{
-        // 取消创建
-        cancelCreate: function(){
+        // 取消编辑
+        cancelEdit: function(){
+          console.log("aaaa")
           this.$emit('onCancelClick', {});
         },
-        //保存创建
-        saveCreate: function(){
+        //保存编辑
+        saveEdit: function(){
           if(this.name === ""){
               this.$message.error("请输入项目名称");
           }else if(this.describe === ""){
               this.$message.error("请输入项目描述");
           }
           // 打开loading
-          const loading = this.$loading({fullscreen: true});
-          let token = this.$store.state.token;
-          fetchCreateProject(token, this.name, this.describe).then(resp => {
-             if (resp.success === "true") {
-               this.$message.success("创建成功");
-               this.$emit('onSaveClick', {});
-             }else{
-               this.$message.error(resp.message);
-             }
-             loading.close();
-          })
+          // const loading = this.$loading({fullscreen: true});
+          // let token = this.$store.state.token;
+          // fetchCreateProject(token, this.name, this.describe).then(resp => {
+          //    if (resp.success === "true") {
+          //      this.$message.success("保存成功");
+          //      this.$emit('onSaveClick', {});
+          //    }else{
+          //      this.$message.error(resp.message);
+          //    }
+          //    loading.close();
+          // })
 
         },
 
