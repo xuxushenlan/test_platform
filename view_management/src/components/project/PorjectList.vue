@@ -26,7 +26,7 @@
     </el-table>
 
     <!-- 创建项目 -->
-    <CreateProjectTag v-if="showCreateProject"></CreateProjectTag>
+    <CreateProjectTag v-if="showCreateProject" v-on:onCancelClick="closeCreateProject" v-on:onSaveClick="saveCreateProject"></CreateProjectTag>
 
   </div>
 
@@ -40,7 +40,7 @@
     name: "ProjectList",
     props: [],  //组件变量
     components: {
-      // 引用组件666
+      // 引用组件
       CreateProjectTag: CreateProject
     },
     data(){
@@ -61,13 +61,12 @@
     methods: {
       // 获取项目列表
       getProjectList: function() {
+        this.tableData = [];
         let token = this.$store.state.token;
         fetchGetProjectList(token).then(resp => {
           if ("true" === resp.success) {
-            //this.$message.success("已删除上传的接口文件");
-            console.log(resp.data);
             let result = resp.data;
-            for(let i=1; i< result.length; i++){
+            for(let i=0; i< result.length; i++){
               if (result[i].status === true){
                  result[i].status = "开启";
               }else{
@@ -75,19 +74,26 @@
               }
               this.tableData.push(result[i]);
             }
-            console.log(this.tableData);
-
           } else {
             this.$message.error(resp.message);
           }
         });
       },
-      // 创建项目
+      //创建项目
       createProject: function () {
         this.showCreateProject = true;
-        $('body').css('overflow', 'auto');
+        //$('body').css('overflow', 'auto');
       },
-      // 点击查看
+      //取消创建项目
+      closeCreateProject: function() {
+        this.showCreateProject = false;
+      },
+      //创建项目成功
+      saveCreateProject: function() {
+        this.showCreateProject = false;
+        this.getProjectList();
+      },
+      //点击查看
       handleClick(row) {
         console.log(row);
       }
@@ -96,6 +102,11 @@
   }
 </script>
 
+<style>
+  .cell{
+    text-align: center;
+  }
+</style>
 <style scoped>
   .title-main {
     float: left;

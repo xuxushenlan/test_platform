@@ -28,8 +28,8 @@
       </div>
 
       <div class="main-create-confirm">
-        <el-button style="margin-left: 220px;">取消</el-button>
-        <el-button type="info">保存</el-button>
+        <el-button style="margin-left: 220px;" @click="cancelCreate">取消</el-button>
+        <el-button type="info" @click="saveCreate">保存</el-button>
       </div>
       <div class="end-height"></div>
     </div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  //import {fetchAddProject} from "../../request/fetchProjectData"
+  import {fetchCreateProject} from "../../request/fetchProjectData"
 
 
   export default {
@@ -51,24 +51,32 @@
         }
       },
       methods:{
-        CancelCreateModal:function(){
+        // 取消创建
+        cancelCreate: function(){
           this.$emit('onCancelClick', {});
         },
-        submitForm:function () {
-          if(this.name === ''){
-            this.$message.error("请填写tag名称");
+        //保存创建
+        saveCreate: function(){
+          if(this.name === ""){
+              this.$message.error("请输入项目名称");
+          }else if(this.describe === ""){
+              this.$message.error("请输入项目描述");
           }
+          // 打开loading
           const loading = this.$loading({fullscreen: true});
-          // createTag(this.name).then(resp => {
-          //   if (resp.success === "true") {
-          //     this.$message.success("创建成功");
-          //     this.$emit('onSaveTagClick', {});
-          //   }else{
-          //     this.$message.error(resp.message);
-          //   }
-          //   loading.close();
-          // })
-        }
+          let token = this.$store.state.token;
+          fetchCreateProject(token, this.name, this.describe).then(resp => {
+             if (resp.success === "true") {
+               this.$message.success("创建成功");
+               this.$emit('onSaveClick', {});
+             }else{
+               this.$message.error(resp.message);
+             }
+             loading.close();
+          })
+
+        },
+
       },
       mounted(){
         document.getElementById("createTag").focus();
@@ -78,7 +86,6 @@
 </script>
 
 <style scoped>
-  /*@import "../../../static/css/create.css";*/
 
   .layout-shade {
     /*width: 1440px;*/
@@ -118,8 +125,6 @@
     font-weight: 600;
     text-align: center;
     color: #333333;
-    margin-left: auto;
-    margin-right: auto;
   }
 
   .main-line {
@@ -129,7 +134,6 @@
     background-color: #ffffff;
     box-shadow: inset 0 -1px 0 0 #e0e0e0;
   }
-
 
   .main-option {
     width: 360px;
