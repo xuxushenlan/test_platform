@@ -57,10 +57,13 @@
         },
         //保存创建
         saveCreate: function(){
+          console.log("kong", this.name.length);
           if(this.name === ""){
               this.$message.error("请输入项目名称");
+              return ;
           }else if(this.describe === ""){
               this.$message.error("请输入项目描述");
+              return ;
           }
           // 打开loading
           const loading = this.$loading({fullscreen: true});
@@ -117,7 +120,7 @@
   }
 
   .main-title {
-    width: 120px;
+    width: 500px;
     height: 28px;
     font-family: PingFangSC;
     font-size: 20px;
