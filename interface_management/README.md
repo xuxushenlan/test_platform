@@ -5,7 +5,7 @@
 #### 基础部分
 
 * python语言以及IDE介绍
-* git/github使用
+* git/github/github desktop使用
 
 __目标__：
  * 熟悉项目开发模式
@@ -16,7 +16,7 @@ __目标__：
 * Django视图
 * Django模型
 * Django模板
-* django单元测试
+* django单元测试
 * bootstrap框架
 * jquery ajax
 
@@ -51,6 +51,6 @@ __前端__
 
 __目标__:
 
-* 理解前后端分离的架构
+* 理解前后端分离的架构
 * 如何使用Django开发接口（接口自动化测试）
 * 学会使用前端vue.js框架, 以及基与vue.js的UI库
