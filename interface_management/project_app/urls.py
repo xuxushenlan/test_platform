@@ -7,6 +7,7 @@ urlpatterns = [
 
     # 项目管理
     path('add_project', project_views.add_project),
+    path('get_project_info', project_views.get_project_info),
     path('update_project', project_views.update_project),
     path('get_projects', project_views.get_projects),
     path('del_project', project_views.delete_project),

@@ -36,17 +36,17 @@ class ProjectDao(object):
             return None
 
     @classmethod
-    def update(cls, id_, name, describe, status):
+    def update(cls, pid, name, describe, status):
         """
         更新项目
-        :param id_:
+        :param pid:
         :param name:
         :param describe:
         :param status:
         :return:
         """
         try:
-            pro_obj = cls.get_object_by_id(id_)
+            pro_obj = cls.get_object_by_id(pid)
             if pro_obj is None:
                 return None
 
@@ -74,7 +74,21 @@ class ProjectDao(object):
             return None
 
     @classmethod
-    def get_object_list(cls):
+    def get_project_info_by_id(cls, pid):
+        """
+        根据项目id获得项目信息
+        :param pid:
+        :return:
+        """
+        try:
+            pro_object = Project.objects.get(id=pid)
+            pro_data = model_to_dict(pro_object)
+            return pro_data
+        except ObjectDoesNotExist:
+            return None
+
+    @classmethod
+    def get_project_list(cls):
         """
         获取项目列表
         :return:

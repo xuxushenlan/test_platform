@@ -27,3 +27,34 @@ export const fetchCreateProject = (token, name, describe) => fetch(baseUrl + 'ad
 }).then(function (response) {
     return response.json()
 });
+
+// 获取项目信息
+export const fetchGetProjectInfo = (token, id) => fetch(baseUrl + 'get_project_info', {
+    headers: {"Token": token},
+    method: "POST",
+    body: JSON.stringify({
+      "token": token,
+      "id": id,
+    }),
+    mode: "cors",
+    credentials: 'include',
+}).then(function (response) {
+    return response.json()
+});
+
+// 保存项目信息
+export const fetchUpdateProjectInfo = (token, id, name, describe, status) => fetch(baseUrl + 'update_project', {
+    headers: {"Token": token},
+    method: "POST",
+    body: JSON.stringify({
+      "token": token,
+      "id": id,
+      "name": name,
+      "describe": describe,
+      "status": status
+    }),
+    mode: "cors",
+    credentials: 'include',
+}).then(function (response) {
+    return response.json()
+});
