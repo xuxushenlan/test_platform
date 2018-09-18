@@ -45,7 +45,7 @@ __前端__
 * CSS使用
 * webpack生成vue项目
 * elementUI库
-* vue.js 调用后端接口
+* vue.js 调用后端接口
 
 > 实战项目：测试平台开发
 
