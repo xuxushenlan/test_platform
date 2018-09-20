@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user_app',
     'bootstrap3',
+    'project_app',
 ]
 
 MIDDLEWARE = [

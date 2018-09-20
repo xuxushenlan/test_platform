@@ -22,7 +22,7 @@ def login_action(request):
             user = auth.authenticate(username = login_username, password = login_password)
             if user is not None:
                 auth.login(request, user) # 验证登录
-                response = HttpResponseRedirect('/project_manage/')
+                response = HttpResponseRedirect('/manage/')
                 # response.set_cookie('user',login_username, 3600)
                 request.session['user'] = login_username # 将 session 信息记录到浏览器
                 print("login???")
@@ -31,13 +31,3 @@ def login_action(request):
                 return render(request,"index.html", {"error":"username or password error"})
     else:
         return render(request, "index.html")
-
-
-# 项目管理
-@login_required
-def project_manage(request):
-    #username = request.COOKIES.get('user', '')  # 读取浏览器 cookie
-    username = request.session.get('user', '') # 读取浏览器 session
-    #events = Event.objects.all()
-    return render(request, "project_manage.html")
-
