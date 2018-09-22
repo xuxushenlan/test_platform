@@ -1,18 +1,23 @@
 from django.shortcuts import render
-from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-# 登陆
 def index(request):
+    """
+    登陆首页
+    :param request:
+    :return:
+    """
     return render(request, "index.html")
 
 
-# 登录处理
 def login_action(request):
+    """
+    登陆动作处理
+    :param request:
+    :return:
+    """
     if request.method == "POST":
         login_username = request.POST.get("username")
         login_password = request.POST.get("password")
@@ -29,3 +34,14 @@ def login_action(request):
                 return render(request, "index.html", {"error": "username or password error"})
     else:
         return render(request, "index.html")
+
+
+def logout(request):
+    """
+    退出登录
+    :param request:
+    :return:
+    """
+    auth.logout(request)
+    response = HttpResponseRedirect('/index/')
+    return response
