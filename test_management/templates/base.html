@@ -1,15 +1,58 @@
 <html>
 <head>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     {% load bootstrap3 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <link href="https://v3.bootcss.com/examples/dashboard/dashboard.css" rel="stylesheet">
+    
 </head>
 <body>
+
+    <!-- 顶部导航-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+            aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">测试平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="#">Dashboard</a>
+            </li>
+            <li>
+              <a href="#">Settings</a>
+            </li>
+            <li>
+              <a href="#">{{user}}</a>
+            </li>
+            <li>
+              <a href="#">退出</a>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+    
+
+    <div id="data-manage">
+
+     
 {% block content %}
 
 
 {% endblock %}
+    </div>
 
     <div class="container theme-showcase" role="main" style="margin-top: 800px;margin-left: 230px;width: 1010px;">
       <div class="page-header">
@@ -18,5 +61,30 @@
         <p>&copy; Company 2018, Author:虫师</p>
       </footer>
     </div> <!-- /container -->
+
+
+  <!-- <script>
+    $(document).ready(function () {
+      $("#project").click(function (e) {
+          console.log("点击项目");
+          // $.get("/manage/project/", function (ret) {
+          //   $('#data-manage').html(ret)
+          // });
+          e.preventDefault();
+          $(this).addClass('active');
+          $('#module').removeClass('active');
+          //$('#project').removeClass('active');
+      });
+      $("#module").click(function (e) {
+        console.log("点击模块");
+        // $.get("/manage/module/", function (ret) {
+        //   $('#data-manage').html(ret)
+        // });
+        e.preventDefault();
+        $(this).addClass('active');
+        $('#project').removeClass('active');
+      });
+    });
+  </script> -->
 </body>
 </html>

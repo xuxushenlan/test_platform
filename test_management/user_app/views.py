@@ -22,7 +22,7 @@ def login_action(request):
             user = auth.authenticate(username = login_username, password = login_password)
             if user is not None:
                 auth.login(request, user) # 验证登录
-                response = HttpResponseRedirect('/manage/')
+                response = HttpResponseRedirect('/manage/project/')
                 # response.set_cookie('user',login_username, 3600)
                 request.session['user'] = login_username # 将 session 信息记录到浏览器
                 print("login???")

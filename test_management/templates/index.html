@@ -1,6 +1,14 @@
-{% extends "base.html" %}
-{% block content %}
+<html>
 
+<head>
+  {% load bootstrap3 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <link href="https://v3.bootcss.com/examples/dashboard/dashboard.css" rel="stylesheet">
+
+</head>
+
+<body>
     <div class="container" style="width: 330px;">
       <form class="form-signin" method="post" action="/login_action/">
           <h2 class="form-signin-heading">测试平台</h2>
@@ -13,4 +21,6 @@
       </form>
     </div>
 
-{% endblock %}
+</body>
+
+</html>
