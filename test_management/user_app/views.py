@@ -17,17 +17,15 @@ def login_action(request):
         login_username = request.POST.get("username")
         login_password = request.POST.get("password")
         if login_username == '' or login_password == '':
-            return render(request,"index.html", {"error":"username or password null"})
+            return render(request, "index.html", {"error": "username or password null"})
         else:
             user = auth.authenticate(username = login_username, password = login_password)
             if user is not None:
                 auth.login(request, user) # 验证登录
                 response = HttpResponseRedirect('/manage/project/')
-                # response.set_cookie('user',login_username, 3600)
-                request.session['user'] = login_username # 将 session 信息记录到浏览器
-                print("login???")
+                request.session['user'] = login_username
                 return response
             else:
-                return render(request,"index.html", {"error":"username or password error"})
+                return render(request, "index.html", {"error": "username or password error"})
     else:
         return render(request, "index.html")
