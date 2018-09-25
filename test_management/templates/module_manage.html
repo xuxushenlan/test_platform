@@ -34,60 +34,74 @@
             </li>
           </ul>
         </div>
+      </div>
 
+      {% if type == "list" %}
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h3 class="page-header">模块管理</h3>
-
-            <div class="row">
-              <div class="col-md-6">
-                <table class="table table-bordered">
-                  <thead>
+          <h3 class="page-header">
+            模块管理
+          <button type="button" class="btn btn-default" style="float: right;"
+                    onclick="window.location.href='/manage/add_module/'">创建</button>
+          </h3>
+          <div class="row">
+            <div class="col-md-6">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>名称</th>
+                    <th>描述</th>
+                    <th>项目</th>
+                    <th>时间</th>
+                  </tr>
+                </thead>
+                <tbody>
+                   {% for module in modules %}
                     <tr>
-                      <th>id</th>
-                      <th>名称</th>
-                      <th>描述</th>
-                      <th>项目</th>
-                      <th>时间</th>
+                      <td>{{ module.id }}</td>
+                      <td>{{ module.name }}</td>
+                      <td>{{ module.describe }}</td>
+                      <td>{{ module.project }}</td>
+                      <td>{{ module.create_time | date:"Y-m-d H:i:s" }}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                     {% for module in modules %}
-                      <tr>
-                        <td>{{ module.id }}</td>
-                        <td>{{ module.name }}</td>
-                        <td>{{ module.describe }}</td>
-                        <td>{{ module.project }}</td>
-                        <td>{{ module.create_time | date:"Y-m-d H:i:s" }}</td>
-                      </tr>
-                     {% endfor %}
-                  </tbody>
-                </table>
-              </div>
+                   {% endfor %}
+                </tbody>
+              </table>
             </div>
           </div>
-      </div>
+        </div>
+      {% endif %}
+
+      {% if type == "add" %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h3 class="page-header">创建模块</h3>
+          <div class="row">
+            <div class="col-md-6">
+              <form class="form-horizontal" role="form" method="post" style="margin-left: 50px;">
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">项目:</label>
+                  <div class="col-sm-10">
+                    {{ form.project }}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">提交</button>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+
     </div>
 
-<!--
-    <script>
-        $(document).ready(function(){
-          $("#project").click(function(e){
-            console.log("点击项目");
-            e.preventDefault();
-            $(this).addClass('active');
-            $('#module').removeClass('active');
-            //$('#project').removeClass('active');
-          });
-          $("#module").click(function (e) {
-            console.log("点击服务");
-            e.preventDefault();
-            //$("#module").removeClass('active');
-            $(this).addClass('active');
-            $('#project').removeClass('active');
-            //$("#module").addClass('active');
-          });
-        });
-    </script> -->
+
 
 
 {% endblock %}

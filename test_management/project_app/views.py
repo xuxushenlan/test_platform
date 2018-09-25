@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from project_app.models import Project, Module
 from django.forms.models import model_to_dict
-from project_app.forms import AddProjectForm
+from project_app.forms import AddProjectForm, AddModuleForm
 
 
 # 项目管理
@@ -19,7 +19,7 @@ def project_manage(request):
 
 
 # 添加项目
-def add_project_page(request):
+def add_project(request):
     username = request.session.get('user', '')
 
     if request.method == 'POST':
@@ -28,7 +28,7 @@ def add_project_page(request):
             name = form.cleaned_data['name']
             describe = form.cleaned_data['describe']
             status = 1
-            Project.objects.create(name=name,describe=describe,status=status)
+            Project.objects.create(name=name,describe=describe, status=status)
             return HttpResponseRedirect('/manage/project/')
 
     else:
@@ -50,4 +50,22 @@ def module_manage(request):
         module_dict["project"] = project_obj.name
         module_list.append(module_dict)
 
-    return render(request, "module_manage.html", {"modules": module_list, "user": username})
+    return render(request, "module_manage.html", {"modules": module_list, "user": username, "type": "list"})
+
+
+# 添加模块
+def add_module(request):
+    username = request.session.get('user', '')
+    if request.method == 'POST':
+        form = AddProjectForm(request.POST)  #form 包含提交的数据
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            describe = form.cleaned_data['describe']
+            status = 1
+            Project.objects.create(name=name, describe=describe, status=status)
+            return HttpResponseRedirect('/manage/module/')
+
+    else:
+        form = AddModuleForm()
+
+    return render(request, "module_manage.html", {"user": username, "form": form, "type": "add"})

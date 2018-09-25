@@ -34,11 +34,13 @@
             </li>
           </ul>
         </div>
-        
-        {% if type == "list" %}
+      </div>
+
+      {% if type == "list" %}
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h3 class="page-header">项目列表
-          <button type="button" class="btn btn-default" style="float: right;" onclick="window.location.href='/manage/add_project_page/'">创建</button>
+          <button type="button" class="btn btn-default" style="float: right;"
+                  onclick="window.location.href='/manage/add_project/'">创建</button>
           </h3>
             <div class="row">
               <div class="col-md-6">
@@ -78,7 +80,7 @@
               <form class="form-horizontal" role="form" method="post" style="margin-left: 50px;">
                 
                 <div class="form-group">
-                  <label for="firstname" class="col-sm-2 control-label">名称:</label>
+                  <label class="col-sm-2 control-label">名称:</label>
                   <div class="col-sm-10">
                     {{ form.name }}
                   </div>
@@ -86,7 +88,7 @@
                 
                 <div class="form-group">
                   <!-- Textarea -->
-                  <label for="firstname" class="col-sm-2 control-label">描述:</label>
+                  <label class="col-sm-2 control-label">描述:</label>
                   <div class="col-sm-10">
                     {{ form.describe }}
                   </div>
