@@ -13,9 +13,9 @@ class AddProjectForm(forms.Form):
 # 添加模块表单
 class AddModuleForm(forms.Form):
     project = fields.ChoiceField(
-        choices=Module.objects.values_list('id', 'name')
+        choices=Project.objects.values_list('id', 'name')
     )
 
     def __init__(self, *args, **kwargs):
         super(AddModuleForm, self).__init__(*args, **kwargs)
-        self.fields['project'].choices = Module.objects.values_list('id', 'name')
+        self.fields['project'].choices = Project.objects.values_list('id', 'name')
