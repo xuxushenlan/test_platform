@@ -43,8 +43,8 @@
                   onclick="window.location.href='/manage/add_project/'">创建</button>
           </h3>
             <div class="row">
-              <div class="col-md-6">
-                <table class="table table-bordered">
+              <div class="col-md-6" style="width: 90%;">
+                <table class="table table-bordered" >
                   <thead>
                     <tr>
                       <th>id</th>
@@ -52,6 +52,7 @@
                       <th>描述</th>
                       <th>状态</th>
                       <th>时间</th>
+                      <th>操作</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -62,6 +63,10 @@
                         <td>{{ project.describe }}</td>
                         <td>{{ project.status }}</td>
                         <td>{{ project.create_time | date:"Y-m-d H:i:s" }}</td>
+                        <td>
+                          <a href="/manage/edit_project/{{ project.id }}/">编辑</a>
+                          <a href="/manage/delete_project/{{ project.id }}/">删除</a>
+                        </td>
                       </tr>
                      {% endfor %}
                   </tbody>
@@ -96,16 +101,27 @@
                 
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">提交</button>
+                    <button class="btn btn-default" onclick="window.location.href='/manage/project/'">取消</button>
+                    <button type="submit" class="btn btn-primary">提交</button>
                   </div>
                 </div>
-                
               </form>
             </div>
           </div>
         </div>
       {% endif %}
 
+        <!--<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">-->
+          <!--<h3 class="page-header">编辑项目</h3>-->
+          <!--<div class="row">-->
+            <!--<div class="col-md-6">-->
+              <!--<form action="/manage/edit_project/{{ project.id }}/" method="post">-->
+                <!--{{ form.as_p }}-->
+               <!--<button type="submit" class="btn btn-primary">更新</button>-->
+              <!--</form>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
 
     </div>
 

@@ -13,6 +13,9 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    # def get_absolute_url(self):
+    #     return "/manage/edit_project/%i/" % self.id
+
 
 class Module(models.Model):
     """

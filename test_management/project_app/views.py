@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from project_app.models import Project, Module
 from django.forms.models import model_to_dict
 from project_app.forms import AddProjectForm, AddModuleForm
+from django.views.generic.edit import UpdateView
 
 
 # 项目管理
@@ -19,6 +20,7 @@ def project_manage(request):
 
 
 # 添加项目
+@login_required
 def add_project(request):
     username = request.session.get('user', '')
 
@@ -29,6 +31,34 @@ def add_project(request):
             describe = form.cleaned_data['describe']
             status = 1
             Project.objects.create(name=name,describe=describe, status=status)
+            return HttpResponseRedirect('/manage/project/')
+
+    else:
+        form = AddProjectForm()
+
+    return render(request, "project_manage.html", {"user": username, "form": form, "type": "add"})
+
+
+# # 更新项目
+# class ProjectUpdate(UpdateView):
+#     model = Project
+#     #form_class = AddProjectForm()
+#     fields = ['name', 'describe', 'status']
+#     template_name = 'project_manage.html'
+#     #context_object_name = {"type": "edit"}
+
+
+@login_required
+def add_project(request):
+    username = request.session.get('user', '')
+
+    if request.method == 'POST':
+        form = AddProjectForm(request.POST)  # form 包含提交的数据
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            describe = form.cleaned_data['describe']
+            status = 1
+            Project.objects.create(name=name, describe=describe, status=status)
             return HttpResponseRedirect('/manage/project/')
 
     else:
