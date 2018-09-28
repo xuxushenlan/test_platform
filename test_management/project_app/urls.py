@@ -12,4 +12,5 @@ urlpatterns = [
     path('module/', views.module_manage),
     path('add_module/', views.add_module),
     path('add_module/', views.add_module),
+    path("project_test/<int:id>/", views.project),
 ]

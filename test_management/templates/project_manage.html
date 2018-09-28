@@ -64,7 +64,7 @@
                         <td>{{ project.status }}</td>
                         <td>{{ project.create_time | date:"Y-m-d H:i:s" }}</td>
                         <td>
-                          <a href="/manage/edit_project/{{ project.id }}/">编辑</a>
+                          <a href="/manage/project_test/{{ project.id }}/">编辑</a>
                           <a href="/manage/delete_project/{{ project.id }}/">删除</a>
                         </td>
                       </tr>
@@ -111,18 +111,19 @@
         </div>
       {% endif %}
 
-        <!--<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">-->
-          <!--<h3 class="page-header">编辑项目</h3>-->
-          <!--<div class="row">-->
-            <!--<div class="col-md-6">-->
-              <!--<form action="/manage/edit_project/{{ project.id }}/" method="post">-->
-                <!--{{ form.as_p }}-->
-               <!--<button type="submit" class="btn btn-primary">更新</button>-->
-              <!--</form>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
+      {% if type == "edit" %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h3 class="page-header">编辑项目</h3>
+          <div class="row">
+            <div class="col-md-6">
+              <form action="/manage/project_test/{{ id }}/" method="post">
+                {{ form.as_p }}
+               <button type="submit" class="btn btn-primary">更新</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      {% endif %}
     </div>
 
 

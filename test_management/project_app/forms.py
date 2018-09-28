@@ -4,6 +4,15 @@ from project_app.models import Project, Module
 from django.forms import fields
 
 
+# 项目表单
+class PorjectForm(ModelForm):
+    
+    class Meta:
+        model = Project
+        #在Form中不显示的字段
+        exclude = ['create_time']
+
+
 # 添加项目表单
 class AddProjectForm(forms.Form):
     name = forms.CharField(max_length=100)            # 名称

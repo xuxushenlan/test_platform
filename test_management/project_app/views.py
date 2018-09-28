@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpRequest
 from django.contrib.auth.decorators import login_required
 from project_app.models import Project, Module
 from django.forms.models import model_to_dict
-from project_app.forms import AddProjectForm, AddModuleForm
+from project_app.forms import AddProjectForm, AddModuleForm, PorjectForm
 from django.views.generic.edit import UpdateView
 
 
@@ -99,3 +99,34 @@ def add_module(request):
         form = AddModuleForm()
 
     return render(request, "module_manage.html", {"user": username, "form": form, "type": "add"})
+
+
+def project(request, id=0):
+    assert isinstance(request, HttpRequest)
+    if request.method == 'POST':
+        form = PorjectForm(request.POST)
+        if form.is_valid():
+            #id = form.data['id']
+            if id:
+                model = Project.objects.get(id=id)
+            else:
+                model = Project()
+            model.name = form.cleaned_data['name']
+            model.describe = form.cleaned_data['describe']
+            model.status = form.cleaned_data['status']
+            model.save()
+        id = 0
+        return HttpResponseRedirect('/manage/project/')
+    else:
+        if id:
+            form = PorjectForm(
+                instance=Project.objects.get(id=id))
+        else:
+            form = PorjectForm()
+    return render(request, 'project_manage.html', {
+        'title': '变更记录',
+        'form': form,  # 获得表单对象
+        'data': Project.objects.all(),
+        'id': id,
+        'type': "edit"
+    })
