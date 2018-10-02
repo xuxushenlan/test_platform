@@ -24,9 +24,9 @@ def login_action(request):
         if login_username == '' or login_password == '':
             return render(request, "index.html", {"error": "username or password null"})
         else:
-            user = auth.authenticate(username = login_username, password = login_password)
+            user = auth.authenticate(username=login_username, password=login_password)
             if user is not None:
-                auth.login(request, user) # 验证登录
+                auth.login(request, user)   # 记录用户登录状态
                 response = HttpResponseRedirect('/manage/project/')
                 request.session['user'] = login_username
                 return response

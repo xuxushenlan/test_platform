@@ -8,9 +8,9 @@ urlpatterns = [
     path('', views.project_manage),
     path('project/', views.project_manage),
     path('add_project/', views.add_project),
-    # path('edit_project/<int:pk>/', views.ProjectUpdate.as_view(), name="edit"),
+    path("edit_project/<int:pid>/", views.edit_project),
     path('module/', views.module_manage),
     path('add_module/', views.add_module),
     path('add_module/', views.add_module),
-    path("project_test/<int:id>/", views.project),
+
 ]

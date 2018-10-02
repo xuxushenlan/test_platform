@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpRequest
 from django.contrib.auth.decorators import login_required
 from project_app.models import Project, Module
 from django.forms.models import model_to_dict
-from project_app.forms import AddProjectForm, AddModuleForm, PorjectForm
+from project_app.forms import AddProjectForm, AddModuleForm, ProjectForm
 from django.views.generic.edit import UpdateView
 
 
@@ -25,7 +25,7 @@ def add_project(request):
     username = request.session.get('user', '')
 
     if request.method == 'POST':
-        form = AddProjectForm(request.POST) # form 包含提交的数据
+        form = AddProjectForm(request.POST)  # form 包含提交的数据
         if form.is_valid():
             name = form.cleaned_data['name']
             describe = form.cleaned_data['describe']
@@ -39,17 +39,13 @@ def add_project(request):
     return render(request, "project_manage.html", {"user": username, "form": form, "type": "add"})
 
 
-# # 更新项目
-# class ProjectUpdate(UpdateView):
-#     model = Project
-#     #form_class = AddProjectForm()
-#     fields = ['name', 'describe', 'status']
-#     template_name = 'project_manage.html'
-#     #context_object_name = {"type": "edit"}
-
-
 @login_required
 def add_project(request):
+    """
+    添加项目
+    :param request:
+    :return:
+    """
     username = request.session.get('user', '')
 
     if request.method == 'POST':
@@ -62,7 +58,7 @@ def add_project(request):
             return HttpResponseRedirect('/manage/project/')
 
     else:
-        form = AddProjectForm()
+        form = ProjectForm()
 
     return render(request, "project_manage.html", {"user": username, "form": form, "type": "add"})
 
@@ -101,32 +97,36 @@ def add_module(request):
     return render(request, "module_manage.html", {"user": username, "form": form, "type": "add"})
 
 
-def project(request, id=0):
-    assert isinstance(request, HttpRequest)
+@login_required()
+def edit_project(request, pid):
+    """
+    编辑更新项目
+    :param request:
+    :param pid: 项目ID
+    :return:
+    """
     if request.method == 'POST':
-        form = PorjectForm(request.POST)
+        form = ProjectForm(request.POST)
         if form.is_valid():
-            #id = form.data['id']
-            if id:
-                model = Project.objects.get(id=id)
+            if pid:
+                model = Project.objects.get(id=pid)
             else:
                 model = Project()
             model.name = form.cleaned_data['name']
             model.describe = form.cleaned_data['describe']
             model.status = form.cleaned_data['status']
             model.save()
-        id = 0
         return HttpResponseRedirect('/manage/project/')
     else:
-        if id:
-            form = PorjectForm(
-                instance=Project.objects.get(id=id))
+        if pid:
+            form = ProjectForm(
+                instance=Project.objects.get(id=pid))
         else:
-            form = PorjectForm()
+            form = ProjectForm()
     return render(request, 'project_manage.html', {
         'title': '变更记录',
         'form': form,  # 获得表单对象
         'data': Project.objects.all(),
-        'id': id,
+        'id': pid,
         'type': "edit"
     })

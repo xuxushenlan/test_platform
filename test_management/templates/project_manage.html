@@ -64,7 +64,7 @@
                         <td>{{ project.status }}</td>
                         <td>{{ project.create_time | date:"Y-m-d H:i:s" }}</td>
                         <td>
-                          <a href="/manage/project_test/{{ project.id }}/">编辑</a>
+                          <a href="/manage/edit_project/{{ project.id }}/">编辑</a>
                           <a href="/manage/delete_project/{{ project.id }}/">删除</a>
                         </td>
                       </tr>
@@ -112,18 +112,48 @@
       {% endif %}
 
       {% if type == "edit" %}
+        {#  直接渲染整个表单{{ form.as_p }} #}
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h3 class="page-header">编辑项目</h3>
           <div class="row">
             <div class="col-md-6">
-              <form action="/manage/project_test/{{ id }}/" method="post">
-                {{ form.as_p }}
-               <button type="submit" class="btn btn-primary">更新</button>
+              <form class="form-horizontal" role="form" method="post" style="margin-left: 50px;">
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">名称:</label>
+                  <div class="col-sm-10">
+                    {{ form.name }}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <!-- Textarea -->
+                  <label class="col-sm-2 control-label">描述:</label>
+                  <div class="col-sm-10">
+                    {{ form.describe }}
+                  </div>
+                </div>
+
+                  <div class="form-group">
+                  <label class="col-sm-2 control-label">状态:</label>
+                  <div class="col-sm-10">
+                    {{ form.status }}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-default" onclick="window.location.href='/manage/project/'">取消</button>
+                    <button type="submit" class="btn btn-primary">更新</button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
         </div>
       {% endif %}
+
+
     </div>
 
 
