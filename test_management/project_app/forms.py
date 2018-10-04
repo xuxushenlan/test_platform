@@ -20,17 +20,15 @@ class ProjectForm(ModelForm):
         # 在Form中不显示的字段
         exclude = ['create_time']
 
+        # 定义表单属性
         # widgets = {
         #     'name': forms.SelectMultiple(attrs={'class': 'input-small'}),
         # }
 
 
-# 添加模块表单
-class AddModuleForm(forms.Form):
-    project = fields.ChoiceField(
-        choices=Project.objects.values_list('id', 'name')
-    )
-
-    def __init__(self, *args, **kwargs):
-        super(AddModuleForm, self).__init__(*args, **kwargs)
-        self.fields['project'].choices = Project.objects.values_list('id', 'name')
+class ModuleForm(ModelForm):
+    
+    class Meta:
+        model = Module
+        # 在Form中不显示的字段
+        exclude = ['create_time']
