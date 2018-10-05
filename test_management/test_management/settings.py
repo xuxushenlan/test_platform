@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'user_app',
     #'bootstrap3',
     'project_app',
+    'interface_app',
 ]
 
 MIDDLEWARE = [

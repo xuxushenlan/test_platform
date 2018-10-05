@@ -2,7 +2,7 @@ from django.urls import path
 from .views import project_views, module_views
 
 
-app_name = 'polls'
+app_name = 'manage'
 urlpatterns = [
     # ex: /manage/  
     # 项目管理
