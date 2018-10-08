@@ -41,7 +41,7 @@ def api_debug(request):
     if request.method == "GET":
         name = request.GET['name']
         url = request.GET['url']
-        req_method = request.GET['type']
+        req_method = request.GET['req_method']
         parameter = request.GET['parameter']
 
         if parameter == "":
