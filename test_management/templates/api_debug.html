@@ -1,0 +1,87 @@
+{% extends "testcase_manage.html" %} 
+{% block content2 %}
+
+<div class="container" style="width: 80%">
+
+    <!--请求菜单-->
+    <div>
+        <form action="/debug/" method="get" class="bs-example bs-example-form" role="form" style="margin-top: 80px;">
+            <div class="input-group">
+                <span class="input-group-addon">名称</span>
+                <input id="req_name" type="text" class="form-control" placeholder="name">
+            </div>
+            <br>
+
+            <div class="input-group">
+                <span class="input-group-addon">URL</span>
+                <input id="req_url" type="text" class="form-control" placeholder="url">
+            </div>
+            <br>
+            <div>
+                <label>请求方法：</label>
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" id="get" value="get" checked> GET
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" id="post" value="post"> POST
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" id="pub" value="put"> PUT
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" id="delete" value="delete"> DELETE
+                </label>
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon">参数</span>
+                <input id="req_parameter" type="text" class="form-control">
+            </div>
+            <p style="color:#8B8989">说明：参数支持Json格式，如：{"id":1, "name":"名称"}</p>
+
+            <button type="button" class="btn btn-success" id="send">发送</button>
+        </form>
+    </div>
+
+    <div>
+        <p>返回结果：</p>
+        <textarea id="result" class="form-control" rows="8" name=textarea></textarea>
+    </div>
+
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#send").click(function () {
+            var name = $("#req_name").val();
+
+            var requrl = $("#req_url").val();
+
+            var type = $('input:radio[name="req_method"]:checked').val();
+
+            //window.alert(name);
+
+            var parameter = $("#req_parameter").val();
+
+            if (name == "") {
+                window.alert("名称不能为空!");
+            } else if (requrl == "") {
+                window.alert("URL不能为空!");
+            } else if (parameter == "") {
+                parameter = "{}";
+            }
+
+            $.get("/interface/debug/", {
+                'name': name,
+                'url': requrl,
+                'type': type,
+                'parameter': parameter
+            }, function (ret) {
+                $('#result').html(ret)
+            })
+        });
+    });
+</script>
+
+{% endblock %}
