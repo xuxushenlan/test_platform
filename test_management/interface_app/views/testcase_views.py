@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from interface_app.models import TestCase
 from django.http import HttpResponse
+from interface_app.forms import TestCaseForm
 import requests
 import json
 
@@ -20,8 +21,10 @@ def add_case(request):
     """
     添加测试用例
     """
+    form = TestCaseForm()
     return render(request, "api_debug.html", {
         "type": "add",
+        "form": form,
     })
 
 

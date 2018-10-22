@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from project_app.models import Project, Module
 
 
@@ -16,8 +17,9 @@ class TestCase(models.Model):
     parameter_type = models.CharField("参数类型", max_length=10, blank=True, default="")
     parameter_body = models.TextField("参数体", max_length=1000, blank=True, default="")
     response_assert = models.CharField("返回值断言", max_length=1000, blank=True, default="")
-    user = models.CharField("用户", max_length=50, blank=True, default="")
-    create_time = models.DateTimeField("创建时间", auto_now=True)
+    #user = models.CharField("用户", max_length=50, blank=True, default="")
+    create_user = models.ForeignKey(User, blank=False, null=True, on_delete=models.SET_NULL, default=1)
+    create_time = models.DateTimeField("创建时间", auto_now_add=True)
 
     def __str__(self):
         return self.name

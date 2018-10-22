@@ -6,6 +6,20 @@
     <!--请求菜单-->
     <div>
         <form action="/debug/" method="get" class="bs-example bs-example-form" role="form" style="margin-top: 80px;">
+            <div class="control-group" style="height: 35px;">
+                <label class="control-label" style="float: left; margin-right: 10px;">项目:</label>
+                <div class="controls" style="float: left;">
+                    {{ form.project }}
+                </div>
+            </div>
+
+            <div class="control-group" style="height: 35px;">
+                <label class="control-label" style="float: left; margin-right: 10px;">模块:</label>
+                <div class="controls" style="float: left;">
+                    {{ form.module }}
+                </div>
+            </div>
+
             <div class="input-group">
                 <span class="input-group-addon">名称</span>
                 <input id="req_name" type="text" class="form-control" placeholder="name">
@@ -56,7 +70,7 @@
             <p style="color:#8B8989">说明：以字典的方式设置参数，如：{"id":1, "name":"名称"}</p>
             <div style="width: 100%; height: 60px;">
                 <button type="button" class="btn btn-primary" id="save" style="float: right;">保存</button>
-                <button type="button" class="btn btn-success" id="send" style="float: right;margin-right: 10px;">运行</button>
+                <button type="button" class="btn btn-success" id="send" style="float: right;margin-right: 10px;">调试</button>
             </div>
             
         </form>
