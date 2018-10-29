@@ -5,16 +5,21 @@
 
     <!--请求菜单-->
     <div>
-        <form action="/debug/" method="get" class="bs-example bs-example-form" role="form" style="margin-top: 80px;">
+        <form action="/debug/" method="get" class="bs-example bs-example-form" role="form"
+              style="margin-top: 30px">
+
+            <select class="selectpicker">
+              <option>Mustard</option>
+              <option>Ketchup</option>
+              <option>Barbecue</option>
+            </select>
+
             <div class="control-group" style="height: 35px;">
                 <label class="control-label" style="float: left; margin-right: 10px;">项目:</label>
                 <div class="controls" style="float: left;">
                     {{ form.project }}
                 </div>
-            </div>
-
-            <div class="control-group" style="height: 35px;">
-                <label class="control-label" style="float: left; margin-right: 10px;">模块:</label>
+                <label class="control-label" style="float: left; margin-right: 10px; margin-left: 30px;">模块:</label>
                 <div class="controls" style="float: left;">
                     {{ form.module }}
                 </div>
@@ -46,6 +51,7 @@
                     <input type="radio" name="req_method" id="delete" value="delete"> DELETE
                 </label>
             </div>
+
             <div style="margin-top: 10px;">
                 <label>参数类型：</label>
                 <label class="radio-inline">
@@ -54,8 +60,8 @@
                 <label class="radio-inline">
                     <input type="radio" name="req_type" id="json" value="json"> JSON
                 </label>
-                
             </div>
+
             <br>
             <div class="input-group">
                 <span class="input-group-addon">Header</span>
@@ -92,8 +98,6 @@
             var req_url = $("#req_url").val();
             var req_method = $('input:radio[name="req_method"]:checked').val();
 
-            //window.alert(name);
-
             var parameter = $("#req_parameter").val();
 
             if (name == "") {
@@ -116,8 +120,17 @@
 
         // 保存接口
         $("#save").click(function () {
-
+            var name = $("#req_name").val();
+            var req_url = $("#req_url").val();
+            var req_method = $('input:radio[name="req_method"]:checked').val();
+            var parameter = $("#req_parameter").val();
         });
+        
+        //select
+        //$.fn.selectpicker.Constructor.BootstrapVersion = '3';
+        <!--$('.selectpicker').click(function () {-->
+            <!--window.alert("hello");-->
+        <!--});-->
     });
 </script>
 

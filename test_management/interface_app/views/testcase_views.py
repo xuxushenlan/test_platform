@@ -39,7 +39,7 @@ def debug_case(request, cid):
 
 def api_debug(request):
     """
-    接口调试动作
+    接口调试
     """
     if request.method == "GET":
         name = request.GET['name']
@@ -52,8 +52,8 @@ def api_debug(request):
 
         try:
             parameter_dict = json.loads(parameter.replace("'", "\""))
-        except JSONDecodeError2:
-            return HttpResponse("参数格式错误")
+        except json.decoder.JSONDecodeError:
+            return HttpResponse("接口参数格式错误, 必须字典形式{\"id\":1}")
 
         r = None
         if req_method == "get":
@@ -70,7 +70,7 @@ def api_debug(request):
 
         try:
             print(r.json())
-        except JSONDecodeError:
+        except json.decoder.JSONDecodeError:
             return HttpResponse(r.text)
 
         # HistoryInterface.objects.create(
