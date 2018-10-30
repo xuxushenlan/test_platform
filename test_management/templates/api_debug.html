@@ -8,12 +8,6 @@
         <form action="/debug/" method="get" class="bs-example bs-example-form" role="form"
               style="margin-top: 30px">
 
-            <select class="selectpicker">
-              <option>Mustard</option>
-              <option>Ketchup</option>
-              <option>Barbecue</option>
-            </select>
-
             <div class="control-group" style="height: 35px;">
                 <label class="control-label" style="float: left; margin-right: 10px;">项目:</label>
                 <div class="controls" style="float: left;">
@@ -94,21 +88,19 @@
     $(document).ready(function () {
         // 调试接口
         $("#send").click(function () {
-            var name = $("#req_name").val();
-            var req_url = $("#req_url").val();
-            var req_method = $('input:radio[name="req_method"]:checked').val();
+            let name = $("#req_name").val();
+            let req_url = $("#req_url").val();
+            let req_method = $('input:radio[name="req_method"]:checked').val();
 
-            var parameter = $("#req_parameter").val();
+            let parameter = $("#req_parameter").val();
 
-            if (name == "") {
-                window.alert("名称不能为空!");
-            } else if (req_url == "") {
+            if (req_url === "") {
                 window.alert("URL不能为空!");
-            } else if (parameter == "") {
+            } else if (parameter === "") {
                 parameter = "{}";
             }
 
-            $.get("/interface/debug/", {
+            $.post("/interface/debug/", {
                 'name': name,
                 'url': req_url,
                 'req_method': req_method,
@@ -120,10 +112,40 @@
 
         // 保存接口
         $("#save").click(function () {
-            var name = $("#req_name").val();
-            var req_url = $("#req_url").val();
-            var req_method = $('input:radio[name="req_method"]:checked').val();
-            var parameter = $("#req_parameter").val();
+            let project_id = $('select[name="project"]').val();
+            let module_id = $('select[name="module"]').val();
+
+            let name = $("#req_name").val();
+            let req_url = $("#req_url").val();
+            let req_method = $('input:radio[name="req_method"]:checked').val();
+            let parameter = $("#req_parameter").val();
+
+            //console.log(project_id);
+            //window.alert(project_id);
+            if(project_id === "" || module_id === ""){
+                window.alert("请选择保存的项目和模块！");
+            }
+            else if (name === ""){
+                window.alert("请输入用例的名称！");
+            }else if (req_url === "") {
+                window.alert("URL不能为空!");
+            } else if (parameter === "") {
+                parameter = "{}";
+            }
+
+            $.post("/interface/add_case/", {
+                'project_id': project_id,
+                'module_id': module_id,
+                'name': name,
+                'url': req_url,
+                'req_method': req_method,
+                'parameter': parameter
+            }, function (ret) {
+                //$('#result').html(ret)
+                window.alert(ret);
+            })
+
+
         });
         
         //select

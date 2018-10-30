@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from interface_app.models import TestCase
 from django.http import HttpResponse
 from interface_app.forms import TestCaseForm
 import requests
 import json
+from simplejson.errors import JSONDecodeError
+from interface_app.models import TestCase
+from project_app.models import Project, Module
 
 
 def testcase(request):
@@ -22,10 +24,38 @@ def add_case(request):
     添加测试用例
     """
     form = TestCaseForm()
-    return render(request, "api_debug.html", {
-        "type": "add",
-        "form": form,
-    })
+
+    if request.method == "POST":
+        pid = request.POST['project_id']
+        mid = request.POST['module_id']
+        name = request.POST['name']
+        url = request.POST['url']
+        req_method = request.POST['req_method']
+        parameter = request.POST['parameter']
+
+        if pid == "" or mid == "" or name == "" or url == "" or req_method == "":
+            return HttpResponse("必传参数为空")
+
+        if parameter == "":
+            parameter_dict = "{}"
+
+        try:
+            parameter_dict = json.loads(parameter.replace("'", "\""))
+        except json.decoder.JSONDecodeError:
+            return HttpResponse('接口参数格式错误, 必须字典形式{"id":1}')
+
+        project_obj = Project.objects.get(pk=pid)
+        module_obj = Module.objects.get(pk=mid)
+
+        TestCase.objects.create(name=name, project=project_obj, module=module_obj, url=url, method=req_method,
+                                parameter_body=parameter_dict)
+
+        return HttpResponse("创建成功！")
+    else:
+        return render(request, "api_debug.html", {
+            "type": "add",
+            "form": form,
+        })
 
 
 def debug_case(request, cid):
@@ -41,11 +71,10 @@ def api_debug(request):
     """
     接口调试
     """
-    if request.method == "GET":
-        name = request.GET['name']
-        url = request.GET['url']
-        req_method = request.GET['req_method']
-        parameter = request.GET['parameter']
+    if request.method == "POST":
+        url = request.POST['url']
+        req_method = request.POST['req_method']
+        parameter = request.POST['parameter']
 
         if parameter == "":
             parameter_dict = "{}"
@@ -53,7 +82,7 @@ def api_debug(request):
         try:
             parameter_dict = json.loads(parameter.replace("'", "\""))
         except json.decoder.JSONDecodeError:
-            return HttpResponse("接口参数格式错误, 必须字典形式{\"id\":1}")
+            return HttpResponse('接口参数格式错误, 必须字典形式{"id":1}')
 
         r = None
         if req_method == "get":
@@ -70,7 +99,7 @@ def api_debug(request):
 
         try:
             print(r.json())
-        except json.decoder.JSONDecodeError:
+        except JSONDecodeError:
             return HttpResponse(r.text)
 
         # HistoryInterface.objects.create(
