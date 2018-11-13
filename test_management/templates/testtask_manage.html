@@ -1,0 +1,120 @@
+{% extends "base.html" %} 
+{% block content %}
+
+<!--侧边导航 -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li id="project">
+                    <a href="/manage/project">
+                        <span class="glyphicon glyphicon-th-large"></span> 项目管理
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li id="module">
+                    <a href="/manage/module">
+                        <span class="glyphicon glyphicon-th"></span> 模块管理</a>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li>
+                    <a href="/interface/testcase/">
+                        <span class="glyphicon glyphicon-th-list"></span> 用例管理</a>
+                </li>
+                <li class="active">
+                    <a href="">
+                        <span class="glyphicon glyphicon-tasks"></span> 任务管理</a>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li>
+                    <a href="/manage/mockserver/">
+                        <span class="glyphicon glyphicon-log-in"></span> MockServer</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    {% if type == "list" %}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h3 class="page-header">
+            任务管理
+            <button type="button" class="btn btn-default" style="float: right;" onclick="window.location.href='/interface/add_case/'">创建</button>
+        </h3>
+        <div class="row">
+            <div class="col-md-6" style="width: 90%;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>描述</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+                        <tr>
+                            <td>{{ task.name }}</td>
+                            <td>{{ task.describe }}</td>
+                            <td>
+                                {% if task.status == 0 %}
+                                    <p>未执行</p>                                
+                                {% endif %}
+                                {% if task.status == 1 %}
+                                    <p>执行中</p>
+                                {% endif %}
+                                {% if task.status == 2 %}
+                                    <p>已执行</p>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="/interface/add_test_cases/">添加</a>
+                                <a href="/interface/debug_case/{{ task.id }}/">调试</a>
+                                <a href="/interface/delete_case/{{ task.id }}/">删除</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %} 
+    
+    {% if type == "add_case" %}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h3 class="page-header">添加测试用例</h3>
+        <div class="row">
+            
+            {% for case in cases %}
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">{{ case.name }}
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- {% if type == "debug" %}
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h3 class="page-header">调试测试</h3>
+        <div class="row">
+           {% block content2 %} 
+           
+           api_debug.html 
+           
+           {% endblock %}
+        </div>
+      </div>
+    {% endif %} -->
+
+</div>
+
+
+
+
+{% endblock %}
