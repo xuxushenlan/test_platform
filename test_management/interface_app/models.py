@@ -8,7 +8,6 @@ class TestCase(models.Model):
     用例表
     """
     name = models.CharField("名称", max_length=100, blank=False, default="")
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
     status = models.IntegerField("状态：", default=True) # 1 可用、0 跳过
     url = models.CharField("URL", max_length=100, blank=False, default="")

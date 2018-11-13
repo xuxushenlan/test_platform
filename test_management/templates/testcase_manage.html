@@ -52,7 +52,6 @@
                     <th>名称</th>
                     <th>方法</th>
                     <th>URL</th>
-                    <th>项目</th>
                     <th>模块</th>
                     <th>操作</th>
                   </tr>
@@ -64,7 +63,6 @@
                       <td>{{ case.name }}</td>
                       <td>{{ case.method }}</td>
                       <td>{{ case.url }}</td>
-                      <td>{{ case.project.name }}</td>
                       <td>{{ case.module.name }}</td>
                       <td>
                         <a href="/interface/debug_case/{{ case.id }}/">调试</a>
@@ -85,25 +83,26 @@
           <div class="row">
             {% block content_add %}
             
-            <!-- api_debug.html -->
+            <!-- case_add.html -->
             
             {% endblock %}
           </div>
         </div>
       {% endif %}
 
-      <!-- {% if type == "debug" %}
+      {% if type == "debug" %}
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h3 class="page-header">调试测试</h3>
+        <h3 class="page-header">调试接口用例</h3>
         <div class="row">
-           {% block content2 %} 
-           
-           api_debug.html 
-           
-           {% endblock %}
+          {% block content_debug %}
+      
+          <!-- case_debug.html -->
+      
+          {% endblock %}
         </div>
       </div>
-    {% endif %} -->
+      {% endif %}
+
 
     </div>
 
