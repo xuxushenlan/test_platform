@@ -40,7 +40,8 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h3 class="page-header">
             任务管理
-            <button type="button" class="btn btn-default" style="float: right;" onclick="window.location.href='/interface/add_case/'">创建</button>
+            <button type="button" class="btn btn-default" style="float: right;" 
+            onclick="window.location.href='/interface/add_task/'">创建</button>
         </h3>
         <div class="row">
             <div class="col-md-6" style="width: 90%;">
@@ -70,9 +71,11 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <a href="/interface/add_test_cases/">添加</a>
-                                <a href="/interface/debug_case/{{ task.id }}/">调试</a>
+                                <a href="/interface/add_test_cases/">运行</a>
+                                <a href="/interface/add_test_cases/">结果</a>
+                                <a href="/interface/debug_case/{{ task.id }}/">编辑</a>
                                 <a href="/interface/delete_case/{{ task.id }}/">删除</a>
+                                
                             </td>
                         </tr>
                         {% endfor %}
@@ -83,6 +86,18 @@
     </div>
     {% endif %} 
     
+    {% if type == "add_task" %}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h3 class="page-header">添加测试任务</h3>
+        <div class="row">
+            {% block task_add %}
+                <!--add_case.html-->
+            {% endblock %}
+        </div>
+    </div>
+    {% endif %}
+
+
     {% if type == "add_case" %}
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h3 class="page-header">添加测试用例</h3>

@@ -10,7 +10,17 @@ def testtask(request):
     return render(request, "testtask_manage.html", {
         "tasks": task_list,
         "type": "list",
-        })
+    })
+
+
+
+def add_task(request):
+    """
+    添加测试任务
+    """
+    return render(request, "task_add.html", {
+        "type": "add_task",
+    })
 
 
 def add_test_cases(request):
