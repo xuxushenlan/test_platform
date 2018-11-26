@@ -11,7 +11,9 @@ urlpatterns = [
     path("debug_case/<int:cid>/", testcase_views.debug_case),
     path("debug/", testcase_views.api_debug),
     path("get_case_info/", testcase_views.get_case_info),
+    # 用例管理->接口
     path("get_project_list", testcase_api.get_project_list),
+    path("get_case_list/", testcase_api.get_case_list),
     
     # 任务管理
     path("testtask/", testtask_views.testtask),

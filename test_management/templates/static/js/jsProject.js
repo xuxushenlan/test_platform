@@ -3,12 +3,13 @@ var ProjectInit = function (_cmbProject, _cmbModule, defaultProject, defaultModu
     var cmbModule = document.getElementById(_cmbModule);
     var dataList = [];
 
-    //window.alert(defaultProject);
-    //window.alert(defaultMudle);
+    var pro_name = "";
+    var mod_name = "";
+
     //设置默认选项
     function cmbSelect(cmb, str) {
-        for(var i=0; i< cmb.options.length; i++){
-            if(cmb.options[i].value == str){
+        for(let i=0; i< cmb.options.length; i++){
+            if(cmb.options[i].value === str){
                 cmb.selectedIndex = i;
                 return;
             }
@@ -16,7 +17,6 @@ var ProjectInit = function (_cmbProject, _cmbModule, defaultProject, defaultModu
     }
     //创建下拉选项
     function cmbAddOption(cmb, str, obj) {
-        console.log(str);
         var option = document.createElement("option");
         cmb.options.add(option);
         option.innerHTML = str;
@@ -26,32 +26,40 @@ var ProjectInit = function (_cmbProject, _cmbModule, defaultProject, defaultModu
 
     //改变模块
     function changeModule() {
-        //cmbArea.options.length = 0;
-        if (cmbModule.selectedIndex == -1) {
+        if (cmbModule.selectedIndex === -1) {
             return;
         }
-        var item = cmbModule.options[cmbModule.selectedIndex].obj;
         // 当前选中模块的名称
-        console.log("777", cmbModule.options[cmbModule.selectedIndex].value);
+        mod_name = cmbModule.options[cmbModule.selectedIndex].value;
+        console.log("模块名称：", mod_name);
+        console.log("项目名称：", pro_name);
+
+        // 获取某模块的用例列表接口
+        $.post("/interface/get_case_list/", {
+            "pName": pro_name,
+            "mName": mod_name,
+        }, function (resp) {
+            if (resp.success === "true") {
+                console.log(resp.data);
+            }else{
+                window.alert(resp.message);
+            }
+        });
         
-        // for (var i = 0; i < item.areaList.length; i++) {
-        //     cmbAddOption(cmbArea, item.areaList[i], null);
-        // }
-        //cmbSelect(cmbArea, defaultArea);
     }
 
     //改变项目
     function changeProject() {
         cmbModule.options.length = 0;
         cmbModule.onchange = null;
-        console.log("2222", cmbProject.selectedIndex);
         
-        if (cmbProject.selectedIndex == -1) {
+        if (cmbProject.selectedIndex === -1) {
             return;
         }
-        var item = cmbProject.options[cmbProject.selectedIndex].obj;
-        console.log("asdfasdfa", item);
-        for (var i = 0; i < item.moduleList.length; i++) {
+        pro_name = cmbProject.options[cmbProject.selectedIndex].value;
+
+        let item = cmbProject.options[cmbProject.selectedIndex].obj;
+        for (let i = 0; i < item.moduleList.length; i++) {
             cmbAddOption(cmbModule, item.moduleList[i], null);
         }
 
@@ -76,7 +84,7 @@ var ProjectInit = function (_cmbProject, _cmbModule, defaultProject, defaultModu
             }
 
             cmbSelect(cmbProject, defaultProject);
-            //$("#result").html(resp);
+
         });
     }
     // 调用getProjectList函数

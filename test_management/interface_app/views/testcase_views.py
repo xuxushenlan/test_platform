@@ -13,6 +13,22 @@ def testcase(request):
     获取用例列表
     """
     case_list = TestCase.objects.all()
+    # case_list = []
+    # for case in case_list:
+    #     case_dict = {
+    #         "name":case.name,
+    #         "url":case.url,
+    #         # ....
+    #     }
+    #     mid = case.modeule_id
+    #     module = Module.objects.get(id=mid)
+    #     module.name
+    #     project = Project.objects.get(id=module.project_id)
+    #     project.name
+    #     case_dict["project"] = project.name
+    #     case_dict["module"] = module.name
+    #     case_list.append(case_dict)
+
     return render(request, "testcase_manage.html", {
         "cases": case_list,
         "type": "list",
