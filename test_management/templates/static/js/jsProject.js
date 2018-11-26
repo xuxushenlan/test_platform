@@ -23,20 +23,41 @@ var ProjectInit = function (_cmbProject, _cmbModule, defaultProject, defaultModu
         option.value = str;
         option.obj = obj;
     }
-    
+
+    //改变模块
+    function changeModule() {
+        //cmbArea.options.length = 0;
+        if (cmbModule.selectedIndex == -1) {
+            return;
+        }
+        var item = cmbModule.options[cmbModule.selectedIndex].obj;
+        // 当前选中模块的名称
+        console.log("777", cmbModule.options[cmbModule.selectedIndex].value);
+        
+        // for (var i = 0; i < item.areaList.length; i++) {
+        //     cmbAddOption(cmbArea, item.areaList[i], null);
+        // }
+        //cmbSelect(cmbArea, defaultArea);
+    }
+
     //改变项目
     function changeProject() {
         cmbModule.options.length = 0;
-        //cmbModule.onchange = null;
+        cmbModule.onchange = null;
+        console.log("2222", cmbProject.selectedIndex);
+        
         if (cmbProject.selectedIndex == -1) {
             return;
         }
         var item = cmbProject.options[cmbProject.selectedIndex].obj;
+        console.log("asdfasdfa", item);
         for (var i = 0; i < item.moduleList.length; i++) {
             cmbAddOption(cmbModule, item.moduleList[i], null);
         }
 
         cmbSelect(cmbModule, defaultModule);
+        changeModule();
+        cmbModule.onchange = changeModule;
     }
 
     function getProjectList(){
