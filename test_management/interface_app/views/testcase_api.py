@@ -33,13 +33,12 @@ def get_project_list(request):
 
 def get_case_list(request):
     """
-    获取用例列表
+    获取单个模块的用例列表
     """
     if request.method == "POST":
         project_name = request.POST.get("pName", "")
         module_name = request.POST.get("mName", "")
-        print(project_name)
-        print(module_name)
+
         if project_name == "" or module_name == "":
             return common.response_failed("项目或模块名称不能为空")
         try:
@@ -57,5 +56,31 @@ def get_case_list(request):
             cases_list.append(model_to_dict(case))
         return common.response_succeed(data=cases_list)
 
+    else:
+        return common.response_failed("请求方法错误")
+
+
+def get_cases_list(request):
+    """
+    获取所有用例的例表
+    """
+    if request.method == "GET":
+        projects = Project.objects.all()
+
+        cases_list = []
+        for project in projects:
+            modules = Module.objects.filter(project_id=project.id)
+            for module in modules:
+                cases = TestCase.objects.filter(module_id=module.id)
+                for case in cases:
+                    case_info = {
+                        "porject": project.name,
+                        "module": module.name,
+                        "caseId": case.id,
+                        "caseName": case.name, 
+                    }
+                    cases_list.append(case_info)
+        print(cases_list)     
+        return common.response_succeed(message="用例列表", data=cases_list)
     else:
         return common.response_failed("请求方法错误")
