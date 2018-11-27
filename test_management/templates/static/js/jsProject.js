@@ -41,6 +41,19 @@ var ProjectInit = function (_cmbProject, _cmbModule, defaultProject, defaultModu
         }, function (resp) {
             if (resp.success === "true") {
                 console.log(resp.data);
+                let cases = resp.data;
+
+                var options = "";
+                for(let i=0 ;i <cases.length; i++){
+                    let cId = cases[i].id;
+                    let cName = cases[i].name;
+                    console.log(cId);
+                    console.log(cName);
+                    let option = '<input type="checkbox" name="'+cName+'" value="'+cId+'" /> '+cName+'</p >';
+                    options = options + option
+                }
+                var testdiv = document.getElementById("casesList");
+                testdiv.innerHTML = options;
             }else{
                 window.alert(resp.message);
             }

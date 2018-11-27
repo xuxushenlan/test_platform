@@ -33,39 +33,31 @@
 				</div>
 			</div>
 			<br>
-
-			<div class="input-group">
-				<label style="float: left;">用例：</label>
-				<div class="form-group" style="height: 20px;">
-					<select id="project_name"></select>
-					<select id="module_name"></select>
+			
+			<div style="height: 200px;">
+				<div class="input-group" style="float: left;">
+					<label style="float: left;">用例：</label>
+					<div class="form-group" style="height: 30px; width: 350px;">
+						<select id="project_name" style="float: left; height: 25px;width: 150px;"></select>
+						<select id="module_name" style="float: right; height: 25px;width: 150px;"></select>
+					</div>
+					<div id="casesList" style="margin-left: 40px;">
+					</div>
 				</div>
-
-				<div style="width:200px; height: 300px; margin-top: 25px;">
-					<div class="controls">
-					<label class="checkbox inline">
-						<input type="checkbox" value="1"> 1
-					</label>
-					<label class="checkbox inline">
-						<input type="checkbox" value="2"> 2
-					</label>
-					<label class="checkbox inline">
-						<input type="checkbox" value="3"> 3
-					</label>
+				<p style="margin-left: 558px;">已选中的用例:</p>
+				<div  id="CaseOK"  style="background-color: #E0E0E0; height: 200px; width: 300px; float: right;">
 				</div>
-				
+				<button id="selectCases" type="button" class="btn btn-sm btn-default" style="float: right;margin-right: 50px;">添加</button>
 			</div>
-			</div>
+
 			<br>
-
-
 			<div style="width: 100%; height: 60px;">
 				<button type="button" class="btn btn-primary" id="save" style="float: right;">保存</button>
 
 			</div>
 
 		</form>
-
+	</div>
 
 </div>
 
@@ -74,7 +66,32 @@
 
 			// 初始化项目模块选择框
 			ProjectInit('project_name', 'module_name');
+			
+			$(document).ready(function () {
+				var options_list = "";
 
+				// 调试接口
+				$("#selectCases").click(function () {
+					window.alert("已选择用例");
+					var selectCases = document.querySelectorAll("#casesList > input");
+					
+					var options = "";
+					for(let i=0;i<selectCases.length; i++){
+						if(selectCases[i].checked === true){
+							let cId = selectCases[i].value;
+							let cName = selectCases[i].name;
+							let option = '<input type="checkbox" checked="true" name="' + cName + '" value="' + cId + '" /> ' + cName + '</p >';
+							//option.setAttribute("checked", "");
+							options = options + option
+						}
+						
+					}
+					this.options_list = this.options_list + options;
+					var testdiv = document.getElementById("CaseOK");
+					testdiv.innerHTML = this.options_list;
+				});
+				
+			});
 		</script>
 
 {% endblock %}
