@@ -33,6 +33,15 @@
 				</div>
 			</div>
 			<br>
+
+			<div class="input-group">
+				<label style="float: left;">用例2：</label>
+				<div class="controls" style="float: left">
+					<div id="casesList2" style="margin-left: 40px;">
+					</div>
+				</div>
+			</div>
+			<br>
 			
 			<div style="height: 200px;">
 				<div class="input-group" style="float: left;">
@@ -67,10 +76,13 @@
 			// 初始化项目模块选择框
 			ProjectInit('project_name', 'module_name');
 			
+			//所有用例例表
+			CaseList();
+			
 			$(document).ready(function () {
 				var options_list = "";
 
-				// 调试接口
+				// 已选择的用列
 				$("#selectCases").click(function () {
 					window.alert("已选择用例");
 					var selectCases = document.querySelectorAll("#casesList > input");
