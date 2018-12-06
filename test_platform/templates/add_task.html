@@ -20,8 +20,8 @@
 			</div>
 
 			<div class="form-group">
-				<label>用例：</label> 
-				<input type="checkbox" id="selectAll" name="selectAll" value="all">全选/取消</input>
+				<label>用例：</label>
+				<input type="checkbox" id="selectAll">全选/取消</input>
 				<div class="caseList" style="overflow-y:scroll; height: 200px; background: #FFFFFF; padding-left: 15px;">
 					
 				</div>
@@ -37,6 +37,7 @@
 		</form>
 
 	</div>
+
 
 
 </fieldset>
@@ -84,25 +85,21 @@
 		});
 
 	});
-
-	// 监听用例的全选与反选
-	$(document).ready(function () {
-		$("#selectAll").click(function () {
-
-			let selectAll = document.querySelector("#selectAll");
-			let selectCases = document.querySelectorAll("div.caseList > input");
-			
-			if(selectAll.checked === true){
-				for (let i = 0; i < selectCases.length; i++) {
-					selectCases[i].checked = true
-				}
-			}else{
-				for (let i = 0; i < selectCases.length; i++) {
-					selectCases[i].checked = false
-				}
-			}	
-			
-		});
+	
+	// 保存任务
+	$("#selectAll").click(function () {
+		
+		var selectAll = document.querySelector("#selectAll");
+		var allCases = document.querySelectorAll(".caseList > input");
+		if(selectAll.checked === true){
+			for(let i=0; i < allCases.length; i++){
+				allCases[i].checked = true;
+			}
+		}else{
+			for (let i = 0; i < allCases.length; i++) {
+				allCases[i].checked = false;
+			}
+		}
 	});
 
 </script>

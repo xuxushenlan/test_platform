@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="0" failures="0" name="TaskRun-20181206235816" skipped="0" tests="3" time="4.399" timestamp="2018-12-06T23:58:20">
+		<testcase classname="TaskRun" name="test_run_tasks_00001_1" time="0.044" timestamp="2018-12-06T23:58:16"/>
+		<testcase classname="TaskRun" name="test_run_tasks_00002_2" time="2.583" timestamp="2018-12-06T23:58:19"/>
+		<testcase classname="TaskRun" name="test_run_tasks_00003_3" time="1.772" timestamp="2018-12-06T23:58:20"/>
+		<system-out>
+<![CDATA[hhhhh {}
+pppppp {}
+hhhhh {}
+pppppp {}
+hhhhh {}
+pppppp {}
+]]>		</system-out>
+		<system-err>
+<![CDATA[]]>		</system-err>
+	</testsuite>
+</testsuites>

@@ -101,9 +101,12 @@
 
 							<td>{{ task.create_time | date:"Y-m-d H:i:s" }}</td>
 							<td>
-								<a href="/interface/run_task/{{task.id}}/">运行</a>
-								<a href="/interface/debug_case/{{task.id}}/">调试</a>
-								<a href="/interface/delete_project/{{task.id}}/">删除</a>
+								<a href="/interface/run_task/{{task.id}}/" style="margin-right: 8px;">
+									<span class="glyphicon glyphicon-play"></span>
+								</a>
+								<a href="/interface/delete_project/{{task.id}}/" style="margin-right: 8px;">
+									<span class="glyphicon glyphicon-trash"></span>
+								</a>
 							</td>
 						</tr>
 						{% endfor %}
@@ -132,28 +135,5 @@
 
 
 </div>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript">
 
-	// 监听用例的全选与反选
-	// $(document).ready(function () {
-	// 	$("#selectAll").click(function () {
-
-	// 		let selectAll = document.querySelector("#selectAll");
-	// 		let selectCases = document.querySelectorAll("div.caseList > input");
-
-	// 		if (selectAll.checked === true) {
-	// 			for (let i = 0; i < selectCases.length; i++) {
-	// 				selectCases[i].checked = true
-	// 			}
-	// 		} else {
-	// 			for (let i = 0; i < selectCases.length; i++) {
-	// 				selectCases[i].checked = false
-	// 			}
-	// 		}
-
-	// 	});
-	// });
-
-</script>
 {% endblock %}
