@@ -1,17 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite errors="0" failures="0" name="TaskRun-20181206235816" skipped="0" tests="3" time="4.399" timestamp="2018-12-06T23:58:20">
-		<testcase classname="TaskRun" name="test_run_tasks_00001_1" time="0.044" timestamp="2018-12-06T23:58:16"/>
-		<testcase classname="TaskRun" name="test_run_tasks_00002_2" time="2.583" timestamp="2018-12-06T23:58:19"/>
-		<testcase classname="TaskRun" name="test_run_tasks_00003_3" time="1.772" timestamp="2018-12-06T23:58:20"/>
+	<testsuite errors="3" failures="0" name="TaskRun-20181211231534" skipped="0" tests="9" time="6.231" timestamp="2018-12-11T23:15:40">
+		<testcase classname="TaskRun" name="test_run_tasks_00001_11" time="1.405" timestamp="2018-12-11T23:15:35"/>
+		<testcase classname="TaskRun" name="test_run_tasks_00002_20" time="0.030" timestamp="2018-12-11T23:15:35"/>
+		<testcase classname="TaskRun" name="test_run_tasks_00003_23" time="0.000" timestamp="2018-12-11T23:15:35"/>
+		<testcase classname="TaskRun" name="test_run_tasks_00006_19" time="1.624" timestamp="2018-12-11T23:15:37"/>
+		<testcase classname="TaskRun" name="test_run_tasks_00007_1" time="0.024" timestamp="2018-12-11T23:15:37"/>
+		<testcase classname="TaskRun" name="test_run_tasks_00008_3" time="3.143" timestamp="2018-12-11T23:15:40"/>
+		<testcase classname="TaskRun" name="test_run_tasks_00004_24" time="0.002" timestamp="2018-12-11T23:15:35">
+			<error message="Expecting property name enclosed in double quotes: line 1 column 2 (char 1)" type="JSONDecodeError">
+<![CDATA[Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "D:/git/test_platform/test_platform/interface_app/extend/task_run.py", line 27, in test_run_tasks
+    payload_dict = json.loads(parameter)
+  File "C:\Python36\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python36\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python36\lib\json\decoder.py", line 355, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+]]>			</error>
+		</testcase>
+		<testcase classname="TaskRun" name="test_run_tasks_00005_25" time="0.001" timestamp="2018-12-11T23:15:35">
+			<error message="Expecting property name enclosed in double quotes: line 1 column 2 (char 1)" type="JSONDecodeError">
+<![CDATA[Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "D:/git/test_platform/test_platform/interface_app/extend/task_run.py", line 27, in test_run_tasks
+    payload_dict = json.loads(parameter)
+  File "C:\Python36\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python36\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python36\lib\json\decoder.py", line 355, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+]]>			</error>
+		</testcase>
+		<testcase classname="TaskRun" name="test_run_tasks_00009_13" time="0.001" timestamp="2018-12-11T23:15:40">
+			<error message="Expecting property name enclosed in double quotes: line 1 column 2 (char 1)" type="JSONDecodeError">
+<![CDATA[Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "D:/git/test_platform/test_platform/interface_app/extend/task_run.py", line 27, in test_run_tasks
+    payload_dict = json.loads(parameter)
+  File "C:\Python36\lib\json\__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python36\lib\json\decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python36\lib\json\decoder.py", line 355, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+]]>			</error>
+		</testcase>
 		<system-out>
-<![CDATA[hhhhh {}
-pppppp {}
-hhhhh {}
-pppppp {}
-hhhhh {}
-pppppp {}
-]]>		</system-out>
+<![CDATA[]]>		</system-out>
 		<system-err>
 <![CDATA[]]>		</system-err>
 	</testsuite>
