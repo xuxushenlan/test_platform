@@ -1,8 +1,0 @@
-*.pyc
-*.log
-*.sqlite3
-.idea/
-report
-build
-dist
-pyse.egg-info
